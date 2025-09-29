@@ -1,211 +1,121 @@
-// api/proxy.js  (Vercel serverless function)
-// Node 18+ / ESM-friendly (export default)
+// Using CommonJS require syntax for Vercel Serverless Functions
+const axios = require('axios');
 
-const TXT_MODEL = "gemini-1.5-flash"; // stable text+vision
-const IMG_MODEL = "gemini-2.5-flash-image-preview"; // image gen preview
+// This function will be the main handler for all incoming requests to /api/proxy
+module.exports = async (req, res) => {
+    // Ensure this is a POST request
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Method Not Allowed' });
+    }
 
-export default async function handler(req, res) {
-  // --- CORS (allow same-site; change origin below if needed) ---
-  const ORIGIN = req.headers.origin || "";
-  // For testing from anywhere, use "*". For production, lock to your domain.
-  res.setHeader("Access-Control-Allow-Origin", ORIGIN || "*");
-  res.setHeader("Vary", "Origin");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    const { type, prompt, imageData, history } = req.body;
+    const API_KEY = process.env.API_KEY;
 
-  if (req.method === "OPTIONS") {
-    return res.status(204).end();
-  }
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
+    if (!API_KEY) {
+        console.error("FATAL ERROR: API_KEY is not defined in environment variables.");
+        return res.status(500).json({ error: 'Server configuration error.' });
+    }
 
-  // Basic rate limit (per IP, very simple)
-  const ip = (req.headers["x-forwarded-for"] || "").split(",")[0]?.trim() || "anon";
-  if (!rateLimit(ip)) {
-    return res.status(429).json({ error: "Too many requests" });
-  }
+    const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
+    const IMAGEN_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${API_KEY}`;
 
-  // Parse body (bump limit if style -> base64 image)
-  let body = {};
-  try {
-    // Peek small chunk to discover type without reading twice:
-    body = await readJson(req, 5 * 1024 * 1024); // up to ~5MB to be safe
-  } catch {
-    return res.status(400).json({ error: "Invalid JSON" });
-  }
+    console.log(`Received request of type: ${type}`);
 
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    return res.status(500).json({ error: "Missing GEMINI_API_KEY" });
-  }
+    try {
+        let responseData;
+        switch (type) {
+            case 'design':
+                responseData = await handleDesignRequest(prompt, GEMINI_API_URL);
+                break;
+            case 'image':
+                responseData = await handleImageRequest(prompt, IMAGEN_API_URL);
+                break;
+            case 'style':
+                responseData = await handleStyleRequest(imageData, GEMINI_API_URL);
+                break;
+            case 'chat':
+                responseData = await handleChatRequest(history, GEMINI_API_URL);
+                break;
+            default:
+                return res.status(400).json({ error: 'Invalid request type' });
+        }
+        res.status(200).json(responseData);
+    } catch (error) {
+        console.error(`Error processing ${type} request:`, error.response ? JSON.stringify(error.response.data, null, 2) : error.message);
+        res.status(500).json({ error: `Failed to process ${type} request.` });
+    }
+};
 
-  try {
-    const { type } = body;
+// --- Request Handler Functions ---
 
-    if (type === "design") {
-      const { prompt } = body;
-      if (!prompt || typeof prompt !== "string") {
-        return res.status(400).json({ error: "Missing prompt" });
-      }
+async function handleDesignRequest(prompt, apiUrl) {
+    const systemPrompt = `You are a world-class interior designer for a luxury tile and bathware brand called GTSS. A customer will describe a room. Your task is to generate a concise, inspiring design concept based on their description.
+    **Rules:**
+    - The response MUST be in JSON format.
+    - The JSON schema MUST be: { "title": "string", "description": "string", "tileSuggestion": "string", "bathwareSuggestion": "string" }
+    - The tone should be elegant, professional, and inspiring.
+    - **Crucially, write in simple, conversational English.** The language should be very easy for a non-native English speaker to understand.`;
 
-      const systemPrompt = `You are a world-class interior designer for GTSS.
-Return JSON with keys: title, description, tileSuggestion, bathwareSuggestion.
-Write in simple, conversational English.`;
-
-      const payload = {
+    const payload = {
         contents: [{ parts: [{ text: `User prompt: "${prompt}"` }] }],
         systemInstruction: { parts: [{ text: systemPrompt }] },
-        generationConfig: {
-          responseMimeType: "application/json",
-          responseSchema: {
-            type: "OBJECT",
-            properties: {
-              title: { type: "STRING" },
-              description: { type: "STRING" },
-              tileSuggestion: { type: "STRING" },
-              bathwareSuggestion: { type: "STRING" }
-            },
-            required: ["title", "description", "tileSuggestion", "bathwareSuggestion"]
-          }
-        }
-      };
+        generationConfig: { responseMimeType: "application/json" }
+    };
 
-      const resp = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${TXT_MODEL}:generateContent?key=${apiKey}`,
-        { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }
-      );
-      const data = await resp.json();
-      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (!text) return res.status(502).json({ error: "No response from model", details: data?.error?.message });
+    const { data } = await axios.post(apiUrl, payload);
+    const jsonText = data.candidates[0].content.parts[0].text;
+    return JSON.parse(jsonText);
+}
 
-      let parsed;
-      try { parsed = JSON.parse(text); } 
-      catch { return res.status(502).json({ error: "Bad JSON from model" }); }
+async function handleImageRequest(prompt, apiUrl) {
+    const fullPrompt = `Photorealistic, high-end interior design photo of the following concept: ${prompt}. Show a clean, luxurious space. Professional lighting, 8k resolution.`;
+    const payload = {
+        instances: [{ prompt: fullPrompt }],
+        parameters: { "sampleCount": 1 }
+    };
 
-      return res.status(200).json(parsed);
-    }
+    const { data } = await axios.post(apiUrl, payload);
+    const base64Data = data.predictions[0].bytesBase64Encoded;
+    return { dataUrl: `data:image/png;base64,${base64Data}` };
+}
 
-    if (type === "style") {
-      const { base64Image } = body;
-      if (!base64Image || typeof base64Image !== "string") {
-        return res.status(400).json({ error: "Missing base64Image" });
-      }
+async function handleStyleRequest(imageData, apiUrl) {
+    const systemPrompt = `You are a professional interior design analyst for a luxury brand, GTSS. Analyze the provided image of a room and deconstruct its style.
+    **Rules:**
+    - The response MUST be in JSON format.
+    - The JSON schema MUST be: { "primaryStyle": "string", "keyMood": "string", "colorPalette": "string", "materialProfile": "string", "guidance": "string" }
+    - The tone should be expert, insightful, and helpful.
+    - **Crucially, write in simple, conversational English.** The language should be very easy for a non-native English speaker to understand.`;
 
-      const systemPrompt = `You are a professional interior design analyst for GTSS.
-Return JSON: primaryStyle, keyMood, colorPalette, materialProfile, guidance.
-Use simple, conversational English.`;
-
-      const payload = {
-        contents: [{
-          role: "user",
-          parts: [
+    const payload = {
+        contents: [{ parts: [
             { text: "Analyze this room's style." },
-            { inlineData: { mimeType: "image/jpeg", data: base64Image } }
-          ]
-        }],
+            { inlineData: { mimeType: "image/jpeg", data: imageData } }
+        ] }],
         systemInstruction: { parts: [{ text: systemPrompt }] },
-        generationConfig: {
-          responseMimeType: "application/json",
-          responseSchema: {
-            type: "OBJECT",
-            properties: {
-              primaryStyle: { type: "STRING" },
-              keyMood: { type: "STRING" },
-              colorPalette: { type: "STRING" },
-              materialProfile: { type: "STRING" },
-              guidance: { type: "STRING" }
-            },
-            required: ["primaryStyle", "keyMood", "colorPalette", "materialProfile", "guidance"]
-          }
-        }
-      };
-
-      const resp = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${TXT_MODEL}:generateContent?key=${apiKey}`,
-        { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }
-      );
-      const data = await resp.json();
-      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (!text) return res.status(502).json({ error: "No response from model", details: data?.error?.message });
-
-      let parsed;
-      try { parsed = JSON.parse(text); } 
-      catch { return res.status(502).json({ error: "Bad JSON from model" }); }
-
-      return res.status(200).json(parsed);
-    }
-
-    if (type === "image") {
-      const { prompt } = body;
-      if (!prompt || typeof prompt !== "string") {
-        return res.status(400).json({ error: "Missing prompt" });
-      }
-
-      const payload = {
-        contents: [{ parts: [{ text: `Generate a photorealistic, elegant interior design image of: ${prompt}.` }] }],
-        generationConfig: { responseModalities: ["TEXT", "IMAGE"] }
-      };
-
-      const resp = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${IMG_MODEL}:generateContent?key=${apiKey}`,
-        { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }
-      );
-      const data = await resp.json();
-      const base64 = data?.candidates?.[0]?.content?.parts?.find(p => p.inlineData)?.inlineData?.data;
-      if (!base64) return res.status(502).json({ error: "No image data in response", details: data?.error?.message });
-
-      return res.status(200).json({ dataUrl: `data:image/png;base64,${base64}` });
-    }
-
-    if (type === "chat") {
-      const { history } = body;
-      if (!Array.isArray(history)) {
-        return res.status(400).json({ error: "Invalid history" });
-      }
-
-      const systemPrompt = `You are a friendly and professional AI Design Assistant for GTSS.
-Keep answers concise, simple English, no specific SKUs.`;
-
-      const payload = { contents: history, systemInstruction: { parts: [{ text: systemPrompt }] } };
-
-      const resp = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${TXT_MODEL}:generateContent?key=${apiKey}`,
-        { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }
-      );
-      const data = await resp.json();
-      const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (!reply) return res.status(502).json({ error: "No response from model", details: data?.error?.message });
-
-      return res.status(200).json({ reply });
-    }
-
-    return res.status(400).json({ error: "Unknown type" });
-
-  } catch (e) {
-    return res.status(500).json({ error: "Server error", details: e?.message || String(e) });
-  }
+        generationConfig: { responseMimeType: "application/json" }
+    };
+    
+    const { data } = await axios.post(apiUrl, payload);
+    const jsonText = data.candidates[0].content.parts[0].text;
+    return JSON.parse(jsonText);
 }
 
-// ---- tiny helpers ----
-async function readJson(req, limit = 1024 * 1024) {
-  const chunks = [];
-  let size = 0;
-  for await (const chunk of req) {
-    size += chunk.length;
-    if (size > limit) throw new Error("Payload too large");
-    chunks.push(chunk);
-  }
-  const str = Buffer.concat(chunks).toString("utf8") || "{}";
-  return JSON.parse(str);
-}
+async function handleChatRequest(history, apiUrl) {
+    const systemPrompt = `You are a friendly and professional AI Design Assistant for GTSS, a luxury tile and bathware company.
+    **Rules:**
+    1. Answer questions about product types, design trends, and company history.
+    2. If a user wants to book a visit, ask for their name and contact details.
+    3. If you see '[CONTACT INFO HIDDEN]', it means they provided contact info. Your response MUST be: 'Thank you! Our team will contact you shortly to confirm your visit.' Do NOT ask again.
+    4. Keep answers concise. Write in **simple, conversational English** suitable for non-native speakers.
+    5. Politely decline any questions unrelated to interior design, tiles, bathware, or GTSS.`;
+    
+    const payload = {
+      contents: history,
+      systemInstruction: { parts: [{ text: systemPrompt }] },
+    };
 
-const buckets = new Map();
-function rateLimit(key, windowMs = 60_000, max = 30) {
-  const now = Date.now();
-  const arr = buckets.get(key) || [];
-  while (arr.length && now - arr[0] > windowMs) arr.shift();
-  arr.push(now);
-  buckets.set(key, arr);
-  return arr.length <= max;
+    const { data } = await axios.post(apiUrl, payload);
+    const reply = data.candidates[0].content.parts[0].text;
+    return { reply };
 }
