@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>GTSS – Tiles & Bathware | Est. 1947 | Ahmedabad</title>
+    <meta name="description" content="Discover premium tiles, designer bathware, and luxury fittings at GTSS in Ahmedabad. A trusted name with a legacy of quality since 1947.">
+    <meta name="keywords" content="tiles ahmedabad, bathware ahmedabad, luxury tiles, designer faucets, sanitaryware india, GTSS, premium bathroom fittings">
+    <meta name="author" content="GTSS">
+    <link rel="canonical" href="https://www.your-live-website-url.com"> <!-- TODO: Replace with your actual domain -->
+
+    <!-- Open Graph / Facebook Meta Tags -->
+    <meta property="og:title" content="GTSS – Tiles & Bathware | Est. 1947 | Ahmedabad">
+    <meta property="og:description" content="Discover premium tiles, designer bathware, and luxury fittings at GTSS in Ahmedabad. A trusted name with a legacy of quality since 1947.">
+    <meta property="og:image" content="https://www.your-live-website-url.com/your-og-image.jpg"> <!-- TODO: Add a URL to a nice image of your showroom or a hero project -->
+    <meta property="og:url" content="https://www.your-live-website-url.com"> <!-- TODO: Replace with your actual domain -->
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GTSS – Tiles & Bathware | Est. 1947 | Ahmedabad">
+    <meta name="twitter:description" content="Discover premium tiles, designer bathware, and luxury fittings at GTSS in Ahmedabad. A trusted name with a legacy of quality since 1947.">
+    <meta name="twitter:image" content="https://www.your-live-website-url.com/your-twitter-image.jpg"> <!-- TODO: Add a URL to a nice image for Twitter -->
+
+    <!-- Scripts and Stylesheets -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- JSON-LD Structured Data for Local Business -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Store",
+      "name": "GTSS - Tiles & Bathware",
+      "description": "Premium tiles, bathware, and fittings in Ahmedabad since 1947.",
+      "telephone": "+91 99792 31820",
+      "email": "gtss47@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "104-106, Iscon Plaza, Upper Level",
+        "addressLocality": "Ahmedabad",
+        "addressRegion": "Gujarat",
+        "postalCode": "380015",
+        "addressCountry": "IN"
+      },
+      "url": "https://www.your-live-website-url.com", // TODO: Replace with your actual domain
+      "image": "https://www.your-live-website-url.com/your-logo-image.jpg", // TODO: Add a URL to your logo
+      "priceRange": "$$$",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+          ],
+          "opens": "10:00",
+          "closes": "20:00"
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        :root {
+            --gold: #C0A080;
+            --background: #121212;
+            --text-primary: #E0E0E0;
+            --text-secondary: #a0a0a0;
+            --surface: #1E1E1E;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .nav-link {
+            position: relative;
+            padding-bottom: 4px;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background-color: var(--gold);
+            transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        .nav-link.active {
+            color: white;
+        }
+
+
+        .hero-bg {
+            background-color: #1a1a1a; /* Removed background image for a clean look */
+        }
+
+        /* Subtle animation for elements on scroll */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Chatbot styles */
+        #chatbot-window {
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        }
+        .message-bubble {
+            max-width: 80%;
+        }
+        .ai-message {
+            background-color: #2a2a2a;
+        }
+        .user-message {
+            background-color: var(--gold);
+            color: #121212;
+        }
+
+        @keyframes pop {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 20px 25px -5px rgba(192, 160, 128, 0.4);
+            }
+        }
+
+        .animate-pop {
+            animation: pop 2.5s ease-in-out infinite;
+        }
+        
+        /* Back to top button */
+        #back-to-top {
+            transition: opacity 0.3s, transform 0.3s;
+        }
+    </style>
+</head>
+
+<body class="bg-[#121212]">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-[#121212] fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-gray-800">
+        <div class="container mx-auto px-6 py-5 flex justify-between items-center">
+            <a href="#home" class="text-3xl font-serif font-bold text-gray-100 tracking-wide">
+                GTSS<span class="text-[#C0A080]">.</span>
+            </a>
+            
+            <!-- Right side navigation group -->
+            <div class="hidden md:flex items-center space-x-8">
+                <nav id="desktop-nav" class="flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-gray-300 hover:text-white transition-colors whitespace-nowrap">Home</a>
+                    <a href="#ai-studio" class="nav-link text-gray-300 hover:text-white transition-colors whitespace-nowrap">AI Studio</a>
+                    <a href="#products" class="nav-link text-gray-300 hover:text-white transition-colors whitespace-nowrap">Products</a>
+                    <a href="#testimonials" class="nav-link text-gray-300 hover:text-white transition-colors whitespace-nowrap">Testimonials</a>
+                    <a href="#gallery" class="nav-link text-gray-300 hover:text-white transition-colors whitespace-nowrap">Gallery</a>
+                    <a href="#visit" class="nav-link text-gray-300 hover:text-white transition-colors whitespace-nowrap">Visit Us</a>
+                </nav>
+                <button id="open-chatbot-btn" class="bg-[#C0A080] text-black px-6 py-2.5 rounded-md font-bold hover:bg-[#b08f70] transition-all duration-300 transform hover:scale-105 shadow-sm whitespace-nowrap">
+                    AI Assistant
+                </button>
+            </div>
+
+            <button id="mobile-menu-button" class="md:hidden">
+                <i data-feather="menu" class="text-gray-300 w-7 h-7"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 flex flex-col space-y-4 bg-[#121212]">
+            <a href="#home" class="text-gray-300 hover:text-white transition-colors block py-2">Home</a>
+            <a href="#ai-studio" class="text-gray-300 hover:text-white transition-colors block py-2">AI Studio</a>
+            <a href="#products" class="text-gray-300 hover:text-white transition-colors block py-2">Products</a>
+            <a href="#testimonials" class="text-gray-300 hover:text-white transition-colors block py-2">Testimonials</a>
+            <a href="#gallery" class="text-gray-300 hover:text-white transition-colors block py-2">Gallery</a>
+            <a href="#visit" class="text-gray-300 hover:text-white transition-colors block py-2">Visit Us</a>
+            <button id="open-chatbot-btn-mobile" class="bg-[#C0A080] text-black px-5 py-3 rounded-md hover:bg-[#b08f70] transition-all duration-300 text-center mt-3 font-bold">
+                AI Assistant
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- Home / Hero Section -->
+        <section id="home" class="min-h-screen relative flex items-center pt-24 md:pt-20">
+  <!-- Background image -->
+  <div class="absolute inset-0">
+    <img src="images/hero-bg.jpg"
+         alt="GTSS showroom background"
+         class="w-full h-full object-cover">
+    <!-- Dark overlay so text is readable -->
+    <div class="absolute inset-0 bg-black/60"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="container mx-auto px-6 relative z-10">
+    <div class="max-w-xl text-left">
+      <p class="text-lg text-gray-200 font-medium mb-2 tracking-widest flex items-center">
+        <span class="w-10 h-px bg-[#C0A080] mr-4"></span>
+        <span>SINCE 1947</span>
+      </p>
+      <h1 id="hero-headline" class="text-5xl md:text-7xl text-white font-bold mb-6 leading-tight">
+        Where Legacy Meets Luxury.
+      </h1>
+      <p id="hero-tagline" class="text-lg md:text-xl text-gray-300 max-w-lg mb-8">
+        Transform your spaces with our curated collection of premium tiles and designer bathware, backed by over 75 years of trust.
+      </p>
+      <a href="#products" class="inline-block bg-[#C0A080] text-black px-8 py-3.5 rounded-md font-bold text-lg hover:bg-[#b08f70] transition-all duration-300 transform hover:scale-105 shadow-sm">
+        Discover Our Products
+      </a>
+    </div>
+  </div>
+</section>
+
+        <!-- AI Design Studio Section -->
+        <section id="ai-studio" class="py-20 bg-[#1E1E1E]">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 fade-in-up">
+                    <h2 class="text-4xl font-bold text-white">AI Design Studio</h2>
+                    <p class="text-lg text-gray-300 mt-2">Your personal gateway to bespoke design inspiration.</p>
+                </div>
+                <div class="bg-[#121212] rounded-lg shadow-xl p-4 md:p-6 fade-in-up">
+                    <!-- Tabs -->
+                    <div class="border-b border-gray-700">
+                        <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                            <button id="tab-describe" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg border-[#C0A080] text-[#C0A080]">
+                                Describe Your Vision
+                            </button>
+                            <button id="tab-upload" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg border-transparent text-gray-500 hover:text-gray-300 hover:border-gray-500">
+                                Upload for Inspiration
+                            </button>
+                        </nav>
+                    </div>
+
+                    <!-- Tab Content: Describe -->
+                    <div id="content-describe" class="pt-8">
+                         <div class="lg:flex items-start gap-8">
+                            <div class="lg:w-1/2 mb-8 lg:mb-0">
+                                <p class="text-gray-300 mb-6">
+                                    Describe your vision for a room, and our AI consultant will generate a unique design concept. Try "a modern minimalist bathroom with a touch of nature."
+                                </p>
+                                <div class="space-y-4">
+                                    <textarea id="design-prompt" class="w-full px-4 py-3 bg-[#121212] border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-[#C0A080] transition-all text-white" rows="3" placeholder="Describe your dream space..."></textarea>
+                                    <button id="generate-design-btn" class="w-full bg-[#C0A080] text-black px-6 py-3 rounded-md font-bold hover:bg-[#b08f70] transition-all duration-300 flex items-center justify-center">
+                                        <span id="btn-text">Generate My Design</span>
+                                        <div id="btn-loader" class="hidden w-5 h-5 border-2 border-t-transparent border-black rounded-full animate-spin"></div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="lg:w-1/2">
+                                <div id="design-result-container" class="bg-[#1a1a1a] rounded-lg p-6 border border-gray-700 min-h-[300px] flex items-center justify-center">
+                                    <p id="design-placeholder" class="text-gray-500 text-center">Your personalized design concept will appear here.</p>
+                                    <div id="design-result" class="hidden w-full"></div>
+                                    <p id="design-error" class="text-red-500 text-center hidden">Sorry, we couldn't generate a design. Please try again.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tab Content: Upload -->
+                    <div id="content-upload" class="hidden pt-8">
+                        <div class="lg:flex items-start gap-8">
+                            <div class="lg:w-1/2 mb-8 lg:mb-0">
+                                <p class="text-gray-300 mb-6">
+                                    Have a photo you love? Upload an image of any room, and our AI Style Finder will analyze it to suggest similar products and styles.
+                                </p>
+                                <div class="space-y-4">
+                                    <input type="file" id="image-upload" accept="image/*" class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-800 file:text-gray-200 hover:file:bg-gray-700">
+                                    <button id="generate-style-btn" class="w-full bg-[#C0A080] text-black px-6 py-3 rounded-md font-bold hover:bg-[#b08f70] transition-all duration-300 flex items-center justify-center" disabled>
+                                        <span id="style-btn-text">Analyze My Image</span>
+                                        <div id="style-btn-loader" class="hidden w-5 h-5 border-2 border-t-transparent border-black rounded-full animate-spin"></div>
+                                    </button>
+                                </div>
+                                <div id="image-preview-container" class="mt-4 hidden">
+                                    <p class="font-semibold mb-2 text-gray-200">Image Preview:</p>
+                                    <img id="image-preview" src="#" alt="Image Preview" class="rounded-lg max-h-48 w-auto shadow-sm">
+                                </div>
+                            </div>
+                            <div class="lg:w-1/2">
+                                <div id="style-result-container" class="bg-[#1a1a1a] rounded-lg p-6 border border-gray-700 min-h-[300px] flex items-center justify-center">
+                                    <p id="style-placeholder" class="text-gray-500 text-center">Your style analysis will appear here.</p>
+                                    <div id="style-result" class="hidden w-full"></div>
+                                    <p id="style-error" class="text-red-500 text-center hidden">Sorry, we couldn't analyze the image. Please try another one.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Range Section -->
+        <section id="products" class="py-20">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-12 fade-in-up">
+      <h2 class="text-4xl font-bold text-white">Our Product Range</h2>
+      <p class="text-lg text-gray-300 mt-2">Curated for discerning tastes and lasting quality.</p>
+    </div>
+
+    <!-- TILES -->
+    <div class="mb-12">
+      <h3 class="text-2xl font-bold text-white mb-6">Tiles</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Card -->
+    <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
+  <img src="images/products/tiles-vitrified.jpg"
+       alt="Vitrified tiles display"
+       class="w-full h-56 object-cover"
+       loading="lazy">
+  <div class="p-5">
+    <h4 class="text-xl font-semibold text-white mb-1">Vitrified</h4>
+    <p class="text-gray-400 text-sm">Dense, durable, low water absorption. Ideal for high-traffic floors.</p>
+  </div>
+</article>
+
+        <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
+          <img src="images/products/tiles-porcelain.jpg" alt="Porcelain tiles close-up" class="w-full h-56 object-cover" loading="lazy">
+          <div class="p-5">
+            <h4 class="text-xl font-semibold text-white mb-1">Porcelain</h4>
+            <p class="text-gray-400 text-sm">Elegant finishes—matte, satin, polished—for floors & walls.</p>
+          </div>
+        </article>
+
+        <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
+          <img src="images/products/tiles-ceramic.jpg" alt="Ceramic wall tiles pattern" class="w-full h-56 object-cover" loading="lazy">
+          <div class="p-5">
+            <h4 class="text-xl font-semibold text-white mb-1">Ceramic</h4>
+            <p class="text-gray-400 text-sm">Versatile wall solutions with rich textures and colors.</p>
+          </div>
+        </article>
+
+        <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
+          <img src="images/products/tiles-largeformat.jpg" alt="Large-format slabs interior" class="w-full h-56 object-cover" loading="lazy">
+          <div class="p-5">
+            <h4 class="text-xl font-semibold text-white mb-1">Large-Format Slabs</h4>
+            <p class="text-gray-400 text-sm">Seamless look for luxury floors, counters, and feature walls.</p>
+          </div>
+        </article>
+
+        <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
+          <img src="images/products/tiles-outdoor.jpg" alt="Outdoor anti-skid tiles terrace" class="w-full h-56 object-cover" loading="lazy">
+          <div class="p-5">
+            <h4 class="text-xl font-semibold text-white mb-1">Outdoor / Anti-Skid</h4>
+            <p class="text-gray-400 text-sm">Textured grip for balconies, decks, and poolside areas.</p>
+          </div>
+        </article>
+
+        <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
+          <img src="images/products/tiles-mosaic.jpg" alt="Mosaic tiles detail" class="w-full h-56 object-cover" loading="lazy">
+          <div class="p-5">
+            <h4 class="text-xl font-semibold text-white mb-1">Mosaics & Decor</h4>
+            <p class="text-gray-400 text-sm">Accents in glass, stone, and metal for statement walls.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- BATHWARE & FITTINGS -->
+    <div class="mb-12">
+      <h3 class="text-2xl font-bold text-white mb-6">Bathware & Fittings</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
+          <img src="images/products/bath-faucets.jpg" alt="Premium faucets" class="w-full h-56 object-cover" loading="lazy">
+          <div class="p-5">
+            <h4 class="text-xl font-semibold text-white mb-1">Faucets</h4>
+            <p class="text-gray-400 text-sm">Modern finishes: chrome, matte black, brushed gold.</p>
+          </div>
+        </article>
+
+        <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
+          <img src="images/products/bath-showers.jpg" alt="Shower systems" class="w-full h-56 object-cover" loading="lazy">
+          <div class="p-5">
+            <h4 class="text-xl font-semibold text-white mb-1">Showers</h4>
+            <p class="text-gray-400 text-sm">Rain, hand, and thermostatic systems for spa-like comfort.</p>
+          </div>
+        </article>
+
+        <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
+          <img src="images/products/bath-basins.jpg" alt="Designer basins" class="w-full h-56 object-cover" loading="lazy">
+          <div class="p-5">
+            <h4 class="text-xl font-semibold text-white mb-1">Basins</h4>
+            <p class="text-gray-400 text-sm">Counter-top, under-mount, pedestal, and vessel styles.</p>
+          </div>
+        </article>
+
+        <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
+          <img src="images/products/bath-wc.jpg" alt="WC and bidet sets" class="w-full h-56 object-cover" loading="lazy">
+          <div class="p-5">
+            <h4 class="text-xl font-semibold text-white mb-1">WC & Bidets</h4>
+            <p class="text-gray-400 text-sm">Wall-hung and floor-mounted with soft-close comfort.</p>
+          </div>
+        </article>
+
+        <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
+          <img src="images/products/bath-accessories.jpg" alt="Bathroom accessories" class="w-full h-56 object-cover" loading="lazy">
+          <div class="p-5">
+            <h4 class="text-xl font-semibold text-white mb-1">Accessories</h4>
+            <p class="text-gray-400 text-sm">Mirrors, towel rails, shelves, and storage solutions.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-20 bg-[#1E1E1E]">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 fade-in-up">
+                    <h2 class="text-4xl font-bold text-white">What Our Clients Say</h2>
+                    <p class="text-lg text-gray-300 mt-2">Decades of trust, reflected in their words.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-[#121212] p-8 rounded-lg border border-gray-800 fade-in-up">
+                        <p class="text-gray-300 italic mb-6">"The collection at GTSS is unparalleled in Ahmedabad. Their team understood our vision perfectly and helped us source tiles that transformed our home. The quality speaks for itself."</p>
+                        <div class="flex items-center">
+                            <div>
+                                <p class="font-bold text-white">- Rakhi Shah, Homeowner</p>
+                                <p class="text-sm text-[#C0A080]">Ahmedabad</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="bg-[#121212] p-8 rounded-lg border border-gray-800 fade-in-up" style="transition-delay: 100ms;">
+                         <p class="text-gray-300 italic mb-6">"As an architect, I rely on suppliers who offer both quality and variety. GTSS has been my go-to for years. Their expertise in modern materials and classic designs is a huge asset for my projects."</p>
+                        <div class="flex items-center">
+                            <div>
+                                <p class="font-bold text-white">- Utpal Trivedi, Architect</p>
+                                <p class="text-sm text-[#C0A080]">Ahmedabad</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+     <!-- Gallery Section -->
+<section id="gallery" class="py-20">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-12 fade-in-up">
+      <h2 class="text-4xl font-bold text-white">Visual Gallery</h2>
+      <p class="text-lg text-gray-300 mt-2">Inspiration from our showroom and client projects.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 fade-in-up">
+      <!-- Showroom 1 -->
+      <figure class="overflow-hidden rounded-xl border border-gray-800">
+        <img src="images/gallery/showroom-1.jpg"
+             alt="GTSS showroom tile display"
+             class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
+             loading="lazy">
+      </figure>
+
+      <!-- Showroom 2 -->
+      <figure class="overflow-hidden rounded-xl border border-gray-800">
+        <img src="images/gallery/showroom-2.jpg"
+             alt="Premium tile collection wall in GTSS showroom"
+             class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
+             loading="lazy">
+      </figure>
+
+      <!-- Bathroom project -->
+      <figure class="overflow-hidden rounded-xl border border-gray-800">
+        <img src="images/gallery/project-bathroom.jpg"
+             alt="Luxury bathroom with GTSS fittings"
+             class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
+             loading="lazy">
+      </figure>
+
+      <!-- Kitchen project -->
+      <figure class="overflow-hidden rounded-xl border border-gray-800">
+        <img src="images/gallery/project-kitchen.jpg"
+             alt="Modern kitchen backsplash with designer tiles"
+             class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
+             loading="lazy">
+      </figure>
+
+      <!-- Living room project -->
+      <figure class="overflow-hidden rounded-xl border border-gray-800">
+        <img src="images/gallery/project-living.jpg"
+             alt="Living room feature wall with large-format slabs"
+             class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
+             loading="lazy">
+      </figure>
+
+      <!-- Outdoor project -->
+      <figure class="overflow-hidden rounded-xl border border-gray-800">
+        <img src="images/gallery/project-outdoor.jpg"
+             alt="Outdoor flooring with anti-skid tiles"
+             class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
+             loading="lazy">
+      </figure>
+    </div>
+    </section>   
+        <!-- Visit Us Section -->
+        <section id="visit" class="py-20 bg-[#1E1E1E]">
+            <div class="container mx-auto px-6">
+                <div class="text-center fade-in-up">
+                    <h2 class="text-4xl font-bold text-white mb-6">Visit Our Showroom</h2>
+                    <p class="text-lg text-gray-300 max-w-2xl mx-auto mb-8">Experience the quality and craftsmanship firsthand. Our expert team is ready to guide you through our extensive collection.</p>
+                    <div class="rounded-lg overflow-hidden shadow-lg max-w-4xl mx-auto">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.3789395232677!2d72.52044907581172!3d23.04618781525983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e84cced9b5d3d%3A0x330cae27e14f206f!2sGujarat%20Tube%20And%20Sanitary%20Stores!5e0!3m2!1sen!2sus!4v1678886400000!5m2!1sen!2sus" width="100%" height="450" style="border:0; filter: invert(90%) hue-rotate(180deg);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div class="mt-8 text-gray-300 text-lg">
+                         <p class="flex items-center justify-center mb-2"><i data-feather="map-pin" class="mr-3 text-[#C0A080] w-5 h-5 flex-shrink-0"></i><span>104-106, Iscon plaza, Satellite, Ahmedabad</span></p>
+                        <p class="flex items-center justify-center mb-2"><i data-feather="phone" class="mr-3 text-[#C0A080]"></i>+91 99792 31820, +91 92272 06063</p>
+                        <p class="flex items-center justify-center"><i data-feather="mail" class="mr-3 text-[#C0A080]"></i>gtss47@gmail.com</p>
+                    </div>
+
+                    <!-- Moved About Us Content -->
+                    <div class="mt-16 pt-12 border-t border-gray-700 max-w-3xl mx-auto">
+                        <h2 class="text-4xl font-bold text-white mb-4">Our Journey Since 1947</h2>
+                        <p class="text-gray-300 mb-4">
+                            Founded in post-independence India, GTSS began with a simple mission: to bring quality building materials to the people of Ahmedabad. From a humble storefront, we've grown into a leading name in tiles, bathware and fittings, always guided by our core values: Integrity, Quality, and Customer Delight.
+                        </p>
+                        <p class="text-gray-300">
+                            We have witnessed the evolution of design and technology, continuously adapting our collection to meet the sophisticated tastes of our clients while holding firm to the principles of good craftsmanship and lasting value.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>&copy; 2024 GTSS – Tiles & Sanitaryware. All Rights Reserved.</p>
+            <p class="text-sm text-gray-400 mt-2">Est. 1947, Ahmedabad, India</p>
+        </div>
+    </footer>
+    
+    <!-- AI Chatbot Widget -->
+    <div id="chatbot-container" class="fixed bottom-6 right-6 z-50">
+        <div id="chatbot-window" class="absolute bottom-20 right-0 w-80 sm:w-96 bg-[#1E1E1E] rounded-lg shadow-2xl p-4 border border-gray-700 transform scale-95 opacity-0 hidden">
+            <div class="flex justify-between items-center border-b border-gray-700 pb-2 mb-4">
+                <h3 class="text-lg font-bold text-white">AI Design Assistant</h3>
+                <button id="close-chatbot-btn"><i data-feather="x" class="text-gray-500"></i></button>
+            </div>
+            <div id="chat-messages" class="h-80 overflow-y-auto space-y-4 pr-2">
+                <!-- Messages will be injected here -->
+            </div>
+            <div class="mt-4 pt-3 border-t border-gray-700">
+                <div class="flex items-center">
+                    <input type="text" id="chat-input" placeholder="Ask about products or design..." class="w-full px-3 py-2 bg-[#121212] border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-[#C0A080] text-white">
+                    <button id="chat-send-btn" class="ml-2 p-2 bg-[#C0A080] rounded-md text-black">
+                        <i data-feather="send" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <button id="chatbot-toggle-btn" class="bg-[#C0A080] text-black p-4 rounded-full shadow-lg hover:bg-[#b08f70] transition-all duration-300 animate-pop">
+            <i data-feather="message-square" class="w-7 h-7"></i>
+        </button>
+    </div>
+
+    <!-- Back to Top Button -->
+    <a href="#home" id="back-to-top" class="fixed bottom-6 right-24 z-50 bg-[#C0A080] text-black p-3 rounded-full shadow-lg hover:bg-[#b08f70] transition-all duration-300 opacity-0 transform translate-y-4">
+        <i data-feather="arrow-up" class="w-6 h-6"></i>
+    </a>
+
+
+    <script>
+        // Feather Icons
+        feather.replace();
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobile-menu a, #mobile-menu button').forEach(item => {
+            item.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Header shadow on scroll & Back to top button
+        const header = document.getElementById('header');
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-lg', 'shadow-black/50');
+            } else {
+                header.classList.remove('shadow-lg', 'shadow-black/50');
+            }
+
+            // Back to top button visibility
+            if (window.scrollY > 300) {
+                backToTopButton.classList.remove('opacity-0', 'translate-y-4');
+            } else {
+                backToTopButton.classList.add('opacity-0', 'translate-y-4');
+            }
+        });
+
+        // Animate elements on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // --- Active Nav Link on Scroll ---
+        const sections = document.querySelectorAll('main section[id]');
+        const navLinks = document.querySelectorAll('#desktop-nav a.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 100) { // 100 is an offset
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+
+        // AI Design Studio Tabs
+        const tabDescribe = document.getElementById('tab-describe');
+        const tabUpload = document.getElementById('tab-upload');
+        const contentDescribe = document.getElementById('content-describe');
+        const contentUpload = document.getElementById('content-upload');
+
+        tabDescribe.addEventListener('click', () => {
+            tabDescribe.classList.add('border-[#C0A080]', 'text-[#C0A080]');
+            tabDescribe.classList.remove('border-transparent', 'text-gray-500');
+            tabUpload.classList.add('border-transparent', 'text-gray-500');
+            tabUpload.classList.remove('border-[#C0A080]', 'text-[#C0A080]');
+            contentDescribe.style.display = 'block';
+            contentUpload.style.display = 'none';
+        });
+
+        tabUpload.addEventListener('click', () => {
+            tabUpload.classList.add('border-[#C0A080]', 'text-[#C0A080]');
+            tabUpload.classList.remove('border-transparent', 'text-gray-500');
+            tabDescribe.classList.add('border-transparent', 'text-gray-500');
+            tabDescribe.classList.remove('border-[#C0A080]', 'text-[#C0A080]');
+            contentUpload.style.display = 'block';
+            contentDescribe.style.display = 'none';
+        });
+
+        // --- Gemini API Integration ---
+        const apiKey = ""; // Leave blank, will be handled by the environment
+
+        // Function to handle API call with retry logic
+        async function fetchWithExponentialBackoff(url, payload, maxRetries = 5) {
+            let attempt = 0;
+            while (attempt < maxRetries) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    if (response.status === 429 || response.status >= 500) {
+                        // Throttling or server error, so retry
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    } else {
+                        // Client-side error, don't retry
+                        return response.json(); 
+                    }
+                } catch (error) {
+                    attempt++;
+                    if (attempt >= maxRetries) {
+                        console.error("Max retries reached. Failing request.", error);
+                        throw error;
+                    }
+                    const delay = Math.pow(2, attempt) * 1000 + Math.random() * 1000;
+                    console.warn(`Attempt ${attempt} failed. Retrying in ${delay}ms...`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+        }
+        
+        // ---- 1. AI Design Consultant (Text to Design) ----
+        const designPrompt = document.getElementById('design-prompt');
+        const generateDesignBtn = document.getElementById('generate-design-btn');
+        const designResultContainer = document.getElementById('design-result-container');
+        const designPlaceholder = document.getElementById('design-placeholder');
+        const designResultDiv = document.getElementById('design-result');
+        const designError = document.getElementById('design-error');
+        const btnText = document.getElementById('btn-text');
+        const btnLoader = document.getElementById('btn-loader');
+
+        generateDesignBtn.addEventListener('click', async () => {
+            const prompt = designPrompt.value.trim();
+            if (!prompt) return;
+
+            // Show loader, hide text
+            btnText.classList.add('hidden');
+            btnLoader.classList.remove('hidden');
+            generateDesignBtn.disabled = true;
+
+            // Reset UI
+            designPlaceholder.classList.add('hidden');
+            designResultDiv.classList.add('hidden');
+            designError.classList.add('hidden');
+            
+            const systemPrompt = `You are a world-class interior designer for a luxury tile and bathware brand called GTSS. A customer will describe a room. Your task is to generate a concise, inspiring design concept based on their description.
+            
+            **Rules:**
+            - The response MUST be in JSON format.
+            - The JSON schema MUST be: { "title": "string", "description": "string", "tileSuggestion": "string", "bathwareSuggestion": "string" }
+            - The suggestions MUST be general types of products (e.g., "Large format matte black porcelain tiles"), not specific GTSS product names.
+            - The tone should be elegant, professional, and inspiring.
+            - **Crucially, write in simple, conversational English.** The language should be very easy to understand for someone who is not a native English speaker. Avoid sophisticated vocabulary and complex sentences.
+            - Keep the description to 2-3 sentences.`;
+
+            const payload = {
+                contents: [{ parts: [{ text: `User prompt: "${prompt}"` }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            title: { type: "STRING" },
+                            description: { type: "STRING" },
+                            tileSuggestion: { type: "STRING" },
+                            bathwareSuggestion: { type: "STRING" }
+                        },
+                        required: ["title", "description", "tileSuggestion", "bathwareSuggestion"]
+                    }
+                }
+            };
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            try {
+                const result = await fetchWithExponentialBackoff(apiUrl, payload);
+                const candidate = result.candidates?.[0];
+
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    const designData = JSON.parse(candidate.content.parts[0].text);
+                    displayDesign(designData, prompt);
+                } else {
+                    throw new Error("Invalid response structure from API");
+                }
+            } catch (error) {
+                console.error('Error generating design:', error);
+                designError.classList.remove('hidden');
+            } finally {
+                // Hide loader, show text
+                btnText.classList.remove('hidden');
+                btnLoader.classList.add('hidden');
+                generateDesignBtn.disabled = false;
+            }
+        });
+
+        function displayDesign(design, prompt) {
+            const ctaHTML = `
+                <div class="mt-6 p-4 bg-black/30 rounded-md border border-gray-700 text-center">
+                    <p class="text-gray-300">Love this concept? <a href='#visit' class='font-bold text-[#C0A080] hover:underline'>Visit our showroom</a> to get this exact look with our team of experts.</p>
+                </div>`;
+            
+            designResultDiv.innerHTML = `
+                <h4 class="text-2xl font-bold text-white mb-3">${design.title}</h4>
+                <p class="text-gray-300 mb-4">${design.description}</p>
+                <div class="border-t border-gray-700 pt-4 space-y-3">
+                    <p><strong class="font-semibold text-[#C0A080]">Tile Style:</strong> ${design.tileSuggestion}</p>
+                    <p><strong class="font-semibold text-[#C0A080]">Bathware Style:</strong> ${design.bathwareSuggestion}</p>
+                </div>
+                ${ctaHTML}
+                <button id="visualize-btn" data-prompt="${prompt} with ${design.tileSuggestion} and ${design.bathwareSuggestion}" class="mt-4 w-full bg-gray-700 text-white px-6 py-3 rounded-md font-bold hover:bg-gray-600 transition-all duration-300 flex items-center justify-center">
+                    <span id="visualize-btn-text">✨ Visualize This Concept</span>
+                    <div id="visualize-btn-loader" class="hidden w-5 h-5 border-2 border-t-transparent border-white rounded-full animate-spin"></div>
+                </button>
+                <div id="visualize-result" class="mt-4 hidden"></div>
+            `;
+            designResultDiv.classList.remove('hidden');
+            
+            document.getElementById('visualize-btn').addEventListener('click', handleVisualization);
+        }
+
+        // --- 2. AI Design Consultant (Text to Image) ---
+        async function handleVisualization(event) {
+            const button = event.currentTarget;
+            const prompt = button.dataset.prompt;
+            const visualizeResultDiv = document.getElementById('visualize-result');
+            const visualizeBtnText = document.getElementById('visualize-btn-text');
+            const visualizeBtnLoader = document.getElementById('visualize-btn-loader');
+            
+            visualizeBtnText.classList.add('hidden');
+            visualizeBtnLoader.classList.remove('hidden');
+            button.disabled = true;
+
+            visualizeResultDiv.innerHTML = `<p class="text-center text-gray-400">Generating your vision... this may take a moment.</p>`;
+            visualizeResultDiv.classList.remove('hidden');
+            
+            const payload = {
+                contents: [{
+                    parts: [{ text: `Generate a photorealistic, elegant interior design image of: ${prompt}. The style should be luxurious and modern, suitable for an architectural magazine.` }]
+                }],
+                generationConfig: {
+                    responseModalities: ['TEXT', 'IMAGE']
+                },
+            };
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image-preview:generateContent?key=${apiKey}`;
+            
+            try {
+                const result = await fetchWithExponentialBackoff(apiUrl, payload);
+                const base64Data = result?.candidates?.[0]?.content?.parts?.find(p => p.inlineData)?.inlineData?.data;
+
+                if (!base64Data) {
+                    throw new Error("No image data in response.");
+                }
+                const imageUrl = `data:image/png;base64,${base64Data}`;
+                visualizeResultDiv.innerHTML = `<img src="${imageUrl}" alt="AI generated design concept" class="rounded-lg shadow-lg w-full">`;
+
+            } catch (error) {
+                console.error("Error generating image:", error);
+                visualizeResultDiv.innerHTML = `<p class="text-red-500 text-center">Sorry, we couldn't create a visual this time. Please try again.</p>`;
+            } finally {
+                visualizeBtnText.classList.remove('hidden');
+                visualizeBtnLoader.classList.add('hidden');
+                button.disabled = false;
+                button.style.display = 'none'; // Hide button after use
+            }
+        }
+        
+        // --- 3. AI Style Finder (Image to Text) ---
+        const imageUpload = document.getElementById('image-upload');
+        const generateStyleBtn = document.getElementById('generate-style-btn');
+        const imagePreview = document.getElementById('image-preview');
+        const imagePreviewContainer = document.getElementById('image-preview-container');
+        const stylePlaceholder = document.getElementById('style-placeholder');
+        const styleResultDiv = document.getElementById('style-result');
+        const styleError = document.getElementById('style-error');
+        const styleBtnText = document.getElementById('style-btn-text');
+        const styleBtnLoader = document.getElementById('style-btn-loader');
+        let base64ImageData = null;
+
+        imageUpload.addEventListener('change', () => {
+            const file = imageUpload.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    base64ImageData = reader.result.split(',')[1];
+                    imagePreview.src = reader.result;
+                    imagePreviewContainer.classList.remove('hidden');
+                    generateStyleBtn.disabled = false;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                base64ImageData = null;
+                imagePreviewContainer.classList.add('hidden');
+                generateStyleBtn.disabled = true;
+            }
+        });
+
+        generateStyleBtn.addEventListener('click', async () => {
+            if (!base64ImageData) return;
+
+            styleBtnText.classList.add('hidden');
+            styleBtnLoader.classList.remove('hidden');
+            generateStyleBtn.disabled = true;
+
+            stylePlaceholder.classList.add('hidden');
+            styleResultDiv.classList.add('hidden');
+            styleError.classList.add('hidden');
+            
+            const systemPrompt = `You are a professional interior design analyst for a luxury brand, GTSS. Analyze the provided image of a room and deconstruct its style.
+            
+            **Rules:**
+            - The response MUST be in JSON format.
+            - The JSON schema MUST be: { "primaryStyle": "string", "keyMood": "string", "colorPalette": "string", "materialProfile": "string", "guidance": "string" }
+            - The tone should be expert, insightful, and helpful.
+            - The guidance should be a general statement about how to achieve this look with types of tiles and bathware, without mentioning specific product names.
+            - **Crucially, write in simple, conversational English.** The language should be very easy to understand for someone who is not a native English speaker. Avoid sophisticated vocabulary and complex sentences.`;
+
+            const payload = {
+                contents: [
+                    {
+                        role: "user",
+                        parts: [
+                            { text: "Analyze this room's style." },
+                            { inlineData: { mimeType: "image/jpeg", data: base64ImageData } }
+                        ]
+                    }
+                ],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+                generationConfig: {
+                     responseMimeType: "application/json",
+                     responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            primaryStyle: { type: "STRING" },
+                            keyMood: { type: "STRING" },
+                            colorPalette: { type: "STRING" },
+                            materialProfile: { type: "STRING" },
+                            guidance: { type: "STRING" }
+                        },
+                        required: ["primaryStyle", "keyMood", "colorPalette", "materialProfile", "guidance"]
+                    }
+                }
+            };
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            try {
+                const result = await fetchWithExponentialBackoff(apiUrl, payload);
+                const candidate = result.candidates?.[0];
+                
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    const styleData = JSON.parse(candidate.content.parts[0].text);
+                    displayStyle(styleData);
+                } else {
+                    throw new Error("Invalid response structure from API");
+                }
+
+            } catch(error) {
+                console.error('Error analyzing style:', error);
+                styleError.classList.remove('hidden');
+            } finally {
+                styleBtnText.classList.remove('hidden');
+                styleBtnLoader.classList.add('hidden');
+                generateStyleBtn.disabled = false;
+            }
+        });
+        
+        function displayStyle(style) {
+             const ctaHTML = `
+                <div class="mt-6 p-4 bg-black/30 rounded-md border border-gray-700 text-center">
+                    <p class="text-gray-300">Inspired by this style? <a href='#visit' class='font-bold text-[#C0A080] hover:underline'>Visit our showroom</a> and our experts will help you bring it to life.</p>
+                </div>`;
+            styleResultDiv.innerHTML = `
+                <h4 class="text-2xl font-bold text-white mb-3">${style.primaryStyle}</h4>
+                <p class="text-gray-300 mb-4 italic">"${style.keyMood}"</p>
+                <div class="border-t border-gray-700 pt-4 space-y-3">
+                    <p><strong class="font-semibold text-[#C0A080]">Color Palette:</strong> ${style.colorPalette}</p>
+                    <p><strong class="font-semibold text-[#C0A080]">Materials:</strong> ${style.materialProfile}</p>
+                    <p class="mt-4 pt-3 border-t border-gray-800"><strong class="font-semibold text-[#C0A080]">How to achieve this look:</strong> ${style.guidance}</p>
+                </div>
+                ${ctaHTML}
+            `;
+            styleResultDiv.classList.remove('hidden');
+        }
+
+        // --- 4. AI Assistant Chatbot ---
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatbotToggleBtn = document.getElementById('chatbot-toggle-btn');
+        const openChatbotBtn = document.getElementById('open-chatbot-btn');
+        const openChatbotBtnMobile = document.getElementById('open-chatbot-btn-mobile');
+        const closeChatbotBtn = document.getElementById('close-chatbot-btn');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+        const chatSendBtn = document.getElementById('chat-send-btn');
+        let chatHistory = [];
+        
+        const openChatbot = () => {
+            chatbotWindow.classList.remove('hidden');
+            setTimeout(() => {
+                chatbotWindow.classList.remove('opacity-0', 'scale-95');
+                chatbotWindow.classList.add('opacity-100', 'scale-100');
+            }, 10);
+            if (chatMessages.children.length === 0) {
+                 addMessageToChat('ai', "Hello! I'm your AI Design Assistant. How can I help you today? Ask me about tiles, design trends, or booking a visit.");
+            }
+        };
+
+        const closeChatbot = () => {
+            chatbotWindow.classList.remove('opacity-100', 'scale-100');
+            chatbotWindow.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => {
+                chatbotWindow.classList.add('hidden');
+            }, 300);
+        };
+        
+        chatbotToggleBtn.addEventListener('click', () => {
+             if (chatbotWindow.classList.contains('hidden')) {
+                openChatbot();
+            } else {
+                closeChatbot();
+            }
+        });
+        openChatbotBtn.addEventListener('click', openChatbot);
+        openChatbotBtnMobile.addEventListener('click', openChatbot);
+        closeChatbotBtn.addEventListener('click', closeChatbot);
+
+        function addMessageToChat(sender, message) {
+            const messageEl = document.createElement('div');
+            messageEl.className = `message-bubble p-3 rounded-lg ${sender === 'user' ? 'user-message self-end' : 'ai-message self-start'}`;
+            messageEl.textContent = message;
+            chatMessages.appendChild(messageEl);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function sanitizeInput(message) {
+            // Regex for various phone number formats, including Indian numbers
+            const phoneRegex = /(?:\+?91)?[-\s]?[6-9]\d{9}|(?:\+?\d{1,4}[-.\s]?)?(?:\(?\d{1,4}\)?[-.\s]?)?[\d\s.-]{7,15}/g;
+            const emailRegex = /[\w-\.]+@([\w-]+\.)+[\w-]{2,4}/g;
+
+            let sanitizedMessage = message.replace(phoneRegex, '[CONTACT INFO HIDDEN]');
+            sanitizedMessage = sanitizedMessage.replace(emailRegex, '[CONTACT INFO HIDDEN]');
+            return sanitizedMessage;
+        }
+
+        async function handleChatSend() {
+            const userMessage = chatInput.value.trim();
+            if (!userMessage) return;
+
+            addMessageToChat('user', userMessage);
+            chatInput.value = '';
+
+            const sanitizedMessage = sanitizeInput(userMessage);
+            
+            // Add a temporary "typing" indicator for the AI
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'ai-message self-start p-3 rounded-lg animate-pulse';
+            typingIndicator.textContent = '...';
+            chatMessages.appendChild(typingIndicator);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            chatHistory.push({ role: "user", parts: [{ text: sanitizedMessage }] });
+
+            const systemPrompt = `You are a friendly and professional AI Design Assistant for GTSS, a luxury tile and bathware company.
+            
+            **Your Tasks:**
+            1.  Answer questions about product types, design trends, and company history.
+            2.  If a user wants to book a visit, ask for their name and phone number.
+            3.  If you see '[CONTACT INFO HIDDEN]' in the user's message, it means they have provided contact details. Your response MUST be: 'Thank you for providing your details. I've passed them to our team securely, and an expert will contact you shortly.' Do NOT ask for the information again.
+            4.  Keep answers concise and helpful. Do NOT recommend specific product names.
+            5.  **Crucially, write in simple, conversational English.** Your responses should be very easy to understand for someone who is not a native English speaker. Avoid sophisticated vocabulary and complex sentences.`;
+
+            const payload = {
+                contents: chatHistory,
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            try {
+                const result = await fetchWithExponentialBackoff(apiUrl, payload);
+                const candidate = result.candidates?.[0];
+                const aiMessage = candidate?.content?.parts?.[0]?.text;
+                
+                chatMessages.removeChild(typingIndicator); // Remove typing indicator
+                
+                if (aiMessage) {
+                    addMessageToChat('ai', aiMessage);
+                    chatHistory.push({ role: "model", parts: [{ text: aiMessage }] });
+                } else {
+                    addMessageToChat('ai', "I'm sorry, I'm having trouble connecting right now. Please try again in a moment.");
+                }
+
+            } catch (error) {
+                console.error("Chatbot error:", error);
+                chatMessages.removeChild(typingIndicator); // Remove typing indicator
+                addMessageToChat('ai', "My apologies, I encountered an error. Could you please rephrase your question?");
+            }
+        }
+
+        chatSendBtn.addEventListener('click', handleChatSend);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleChatSend();
+            }
+        });
+
+    </script>
+</body>
+
+</html>
