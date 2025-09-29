@@ -33,42 +33,35 @@
     <script src="https://unpkg.com/feather-icons"></script>
 
     <!-- JSON-LD Structured Data for Local Business -->
-    <script type="application/ld+json">
+   <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Store",
+  "name": "GTSS - Tiles & Bathware",
+  "description": "Premium tiles, bathware, and fittings in Ahmedabad since 1947.",
+  "telephone": "+91 99792 31820",
+  "email": "gtss47@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "104-106, Iscon Plaza, Upper Level",
+    "addressLocality": "Ahmedabad",
+    "addressRegion": "Gujarat",
+    "postalCode": "380015",
+    "addressCountry": "IN"
+  },
+  "url": "https://www.your-live-website-url.com",
+  "image": "https://www.your-live-website-url.com/your-logo-image.jpg",
+  "priceRange": "$$$",
+  "openingHoursSpecification": [
     {
-      "@context": "https://schema.org",
-      "@type": "Store",
-      "name": "GTSS - Tiles & Bathware",
-      "description": "Premium tiles, bathware, and fittings in Ahmedabad since 1947.",
-      "telephone": "+91 99792 31820",
-      "email": "gtss47@gmail.com",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "104-106, Iscon Plaza, Upper Level",
-        "addressLocality": "Ahmedabad",
-        "addressRegion": "Gujarat",
-        "postalCode": "380015",
-        "addressCountry": "IN"
-      },
-      "url": "https://www.your-live-website-url.com", // TODO: Replace with your actual domain
-      "image": "https://www.your-live-website-url.com/your-logo-image.jpg", // TODO: Add a URL to your logo
-      "priceRange": "$$$",
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday"
-          ],
-          "opens": "10:00",
-          "closes": "20:00"
-        }
-      ]
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+      "opens": "10:00",
+      "closes": "20:00"
     }
-    </script>
+  ]
+}
+</script>
 
     <style>
         :root {
@@ -560,7 +553,7 @@
         </div>
     </footer>
     
-    <!-- AI Chatbot Widget -->
+    <!-- AI const designData Widget -->
     <div id="chatbot-container" class="fixed bottom-6 right-6 z-50">
         <div id="chatbot-window" class="absolute bottom-20 right-0 w-80 sm:w-96 bg-[#1E1E1E] rounded-lg shadow-2xl p-4 border border-gray-700 transform scale-95 opacity-0 hidden">
             <div class="flex justify-between items-center border-b border-gray-700 pb-2 mb-4">
@@ -685,9 +678,6 @@
             contentDescribe.style.display = 'none';
         });
 
-        // --- Gemini API Integration ---
-        const apiKey = ""; // Leave blank, will be handled by the environment
-
         // Function to handle API call with retry logic
         async function fetchWithExponentialBackoff(url, payload, maxRetries = 5) {
             let attempt = 0;
@@ -772,15 +762,11 @@
                     }
                 }
             };
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-
-            try {
-                const result = await fetchWithExponentialBackoff(apiUrl, payload);
-                const candidate = result.candidates?.[0];
-
-                if (candidate && candidate.content?.parts?.[0]?.text) {
-                    const designData = JSON.parse(candidate.content.parts[0].text);
-                    displayDesign(designData, prompt);
+           const designData = await fetchWithExponentialBackoff("/api/proxy", {
+  type: "design",
+  prompt
+});
+displayDesign(designData, prompt);
                 } else {
                     throw new Error("Invalid response structure from API");
                 }
@@ -835,25 +821,12 @@
             visualizeResultDiv.innerHTML = `<p class="text-center text-gray-400">Generating your vision... this may take a moment.</p>`;
             visualizeResultDiv.classList.remove('hidden');
             
-            const payload = {
-                contents: [{
-                    parts: [{ text: `Generate a photorealistic, elegant interior design image of: ${prompt}. The style should be luxurious and modern, suitable for an architectural magazine.` }]
-                }],
-                generationConfig: {
-                    responseModalities: ['TEXT', 'IMAGE']
-                },
-            };
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image-preview:generateContent?key=${apiKey}`;
-            
-            try {
-                const result = await fetchWithExponentialBackoff(apiUrl, payload);
-                const base64Data = result?.candidates?.[0]?.content?.parts?.find(p => p.inlineData)?.inlineData?.data;
-
-                if (!base64Data) {
-                    throw new Error("No image data in response.");
-                }
-                const imageUrl = `data:image/png;base64,${base64Data}`;
-                visualizeResultDiv.innerHTML = `<img src="${imageUrl}" alt="AI generated design concept" class="rounded-lg shadow-lg w-full">`;
+        const { dataUrl } = await fetchWithExponentialBackoff("/api/proxy", {
+  type: "image",
+  prompt
+});
+if (!dataUrl) throw new Error("No image data");
+visualizeResultDiv.innerHTML = `<img src="${dataUrl}" alt="AI generated design concept" class="rounded-lg shadow-lg w-full">`;
 
             } catch (error) {
                 console.error("Error generating image:", error);
@@ -1069,16 +1042,17 @@
             4.  Keep answers concise and helpful. Do NOT recommend specific product names.
             5.  **Crucially, write in simple, conversational English.** Your responses should be very easy to understand for someone who is not a native English speaker. Avoid sophisticated vocabulary and complex sentences.`;
 
-            const payload = {
-                contents: chatHistory,
-                systemInstruction: { parts: [{ text: systemPrompt }] },
-            };
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-
-            try {
-                const result = await fetchWithExponentialBackoff(apiUrl, payload);
-                const candidate = result.candidates?.[0];
-                const aiMessage = candidate?.content?.parts?.[0]?.text;
+const { reply } = await fetchWithExponentialBackoff("/api/proxy", {
+  type: "chat",
+  history: chatHistory
+});
+chatMessages.removeChild(typingIndicator);
+if (reply) {
+  addMessageToChat('ai', reply);
+  chatHistory.push({ role: "model", parts: [{ text: reply }] });
+} else {
+  addMessageToChat('ai', "I'm sorry, I'm having trouble connecting right now. Please try again in a moment.");
+}
                 
                 chatMessages.removeChild(typingIndicator); // Remove typing indicator
                 
