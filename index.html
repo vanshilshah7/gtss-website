@@ -33,35 +33,42 @@
     <script src="https://unpkg.com/feather-icons"></script>
 
     <!-- JSON-LD Structured Data for Local Business -->
-   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Store",
-  "name": "GTSS - Tiles & Bathware",
-  "description": "Premium tiles, bathware, and fittings in Ahmedabad since 1947.",
-  "telephone": "+91 99792 31820",
-  "email": "gtss47@gmail.com",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "104-106, Iscon Plaza, Upper Level",
-    "addressLocality": "Ahmedabad",
-    "addressRegion": "Gujarat",
-    "postalCode": "380015",
-    "addressCountry": "IN"
-  },
-  "url": "https://www.your-live-website-url.com",
-  "image": "https://www.your-live-website-url.com/your-logo-image.jpg",
-  "priceRange": "$$$",
-  "openingHoursSpecification": [
+    <script type="application/ld+json">
     {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-      "opens": "10:00",
-      "closes": "20:00"
+      "@context": "https://schema.org",
+      "@type": "Store",
+      "name": "GTSS - Tiles & Bathware",
+      "description": "Premium tiles, bathware, and fittings in Ahmedabad since 1947.",
+      "telephone": "+91 99792 31820",
+      "email": "gtss47@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "104-106, Iscon Plaza, Upper Level",
+        "addressLocality": "Ahmedabad",
+        "addressRegion": "Gujarat",
+        "postalCode": "380015",
+        "addressCountry": "IN"
+      },
+      "url": "https://www.your-live-website-url.com", // TODO: Replace with your actual domain
+      "image": "https://www.your-live-website-url.com/your-logo-image.jpg", // TODO: Add a URL to your logo
+      "priceRange": "$$$",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+          ],
+          "opens": "10:00",
+          "closes": "20:00"
+        }
+      ]
     }
-  ]
-}
-</script>
+    </script>
 
     <style>
         :root {
@@ -208,7 +215,7 @@
         <section id="home" class="min-h-screen relative flex items-center pt-24 md:pt-20">
   <!-- Background image -->
   <div class="absolute inset-0">
-    <img src="https://placehold.co/1920x1080/121212/e0e0e0?text=Luxury+Showroom"
+    <img src="images/hero-bg.jpg"
          alt="GTSS showroom background"
          class="w-full h-full object-cover">
     <!-- Dark overlay so text is readable -->
@@ -326,7 +333,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Card -->
     <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
-  <img src="https://placehold.co/600x400/2a2a2a/c0a080?text=Vitrified"
+  <img src="images/products/tiles-vitrified.jpg"
        alt="Vitrified tiles display"
        class="w-full h-56 object-cover"
        loading="lazy">
@@ -337,7 +344,7 @@
 </article>
 
         <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
-          <img src="https://placehold.co/600x400/2a2a2a/c0a080?text=Porcelain" alt="Porcelain tiles close-up" class="w-full h-56 object-cover" loading="lazy">
+          <img src="images/products/tiles-porcelain.jpg" alt="Porcelain tiles close-up" class="w-full h-56 object-cover" loading="lazy">
           <div class="p-5">
             <h4 class="text-xl font-semibold text-white mb-1">Porcelain</h4>
             <p class="text-gray-400 text-sm">Elegant finishes—matte, satin, polished—for floors & walls.</p>
@@ -345,7 +352,7 @@
         </article>
 
         <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
-          <img src="https://placehold.co/600x400/2a2a2a/c0a080?text=Ceramic" alt="Ceramic wall tiles pattern" class="w-full h-56 object-cover" loading="lazy">
+          <img src="images/products/tiles-ceramic.jpg" alt="Ceramic wall tiles pattern" class="w-full h-56 object-cover" loading="lazy">
           <div class="p-5">
             <h4 class="text-xl font-semibold text-white mb-1">Ceramic</h4>
             <p class="text-gray-400 text-sm">Versatile wall solutions with rich textures and colors.</p>
@@ -353,7 +360,7 @@
         </article>
 
         <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
-          <img src="https://placehold.co/600x400/2a2a2a/c0a080?text=Large-Format" alt="Large-format slabs interior" class="w-full h-56 object-cover" loading="lazy">
+          <img src="images/products/tiles-largeformat.jpg" alt="Large-format slabs interior" class="w-full h-56 object-cover" loading="lazy">
           <div class="p-5">
             <h4 class="text-xl font-semibold text-white mb-1">Large-Format Slabs</h4>
             <p class="text-gray-400 text-sm">Seamless look for luxury floors, counters, and feature walls.</p>
@@ -361,7 +368,7 @@
         </article>
 
         <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
-          <img src="https://placehold.co/600x400/2a2a2a/c0a080?text=Outdoor" alt="Outdoor anti-skid tiles terrace" class="w-full h-56 object-cover" loading="lazy">
+          <img src="images/products/tiles-outdoor.jpg" alt="Outdoor anti-skid tiles terrace" class="w-full h-56 object-cover" loading="lazy">
           <div class="p-5">
             <h4 class="text-xl font-semibold text-white mb-1">Outdoor / Anti-Skid</h4>
             <p class="text-gray-400 text-sm">Textured grip for balconies, decks, and poolside areas.</p>
@@ -369,7 +376,7 @@
         </article>
 
         <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
-          <img src="https://placehold.co/600x400/2a2a2a/c0a080?text=Mosaics" alt="Mosaic tiles detail" class="w-full h-56 object-cover" loading="lazy">
+          <img src="images/products/tiles-mosaic.jpg" alt="Mosaic tiles detail" class="w-full h-56 object-cover" loading="lazy">
           <div class="p-5">
             <h4 class="text-xl font-semibold text-white mb-1">Mosaics & Decor</h4>
             <p class="text-gray-400 text-sm">Accents in glass, stone, and metal for statement walls.</p>
@@ -383,7 +390,7 @@
       <h3 class="text-2xl font-bold text-white mb-6">Bathware & Fittings</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
-          <img src="https://placehold.co/600x400/2a2a2a/c0a080?text=Faucets" alt="Premium faucets" class="w-full h-56 object-cover" loading="lazy">
+          <img src="images/products/bath-faucets.jpg" alt="Premium faucets" class="w-full h-56 object-cover" loading="lazy">
           <div class="p-5">
             <h4 class="text-xl font-semibold text-white mb-1">Faucets</h4>
             <p class="text-gray-400 text-sm">Modern finishes: chrome, matte black, brushed gold.</p>
@@ -391,7 +398,7 @@
         </article>
 
         <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
-          <img src="https://placehold.co/600x400/2a2a2a/c0a080?text=Showers" alt="Shower systems" class="w-full h-56 object-cover" loading="lazy">
+          <img src="images/products/bath-showers.jpg" alt="Shower systems" class="w-full h-56 object-cover" loading="lazy">
           <div class="p-5">
             <h4 class="text-xl font-semibold text-white mb-1">Showers</h4>
             <p class="text-gray-400 text-sm">Rain, hand, and thermostatic systems for spa-like comfort.</p>
@@ -399,7 +406,7 @@
         </article>
 
         <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
-          <img src="https://placehold.co/600x400/2a2a2a/c0a080?text=Basins" alt="Designer basins" class="w-full h-56 object-cover" loading="lazy">
+          <img src="images/products/bath-basins.jpg" alt="Designer basins" class="w-full h-56 object-cover" loading="lazy">
           <div class="p-5">
             <h4 class="text-xl font-semibold text-white mb-1">Basins</h4>
             <p class="text-gray-400 text-sm">Counter-top, under-mount, pedestal, and vessel styles.</p>
@@ -407,7 +414,7 @@
         </article>
 
         <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
-          <img src="https://placehold.co/600x400/2a2a2a/c0a080?text=WCs" alt="WC and bidet sets" class="w-full h-56 object-cover" loading="lazy">
+          <img src="images/products/bath-wc.jpg" alt="WC and bidet sets" class="w-full h-56 object-cover" loading="lazy">
           <div class="p-5">
             <h4 class="text-xl font-semibold text-white mb-1">WC & Bidets</h4>
             <p class="text-gray-400 text-sm">Wall-hung and floor-mounted with soft-close comfort.</p>
@@ -415,7 +422,7 @@
         </article>
 
         <article class="bg-[#1E1E1E] border border-gray-800 rounded-xl overflow-hidden">
-          <img src="https://placehold.co/600x400/2a2a2a/c0a080?text=Accessories" alt="Bathroom accessories" class="w-full h-56 object-cover" loading="lazy">
+          <img src="images/products/bath-accessories.jpg" alt="Bathroom accessories" class="w-full h-56 object-cover" loading="lazy">
           <div class="p-5">
             <h4 class="text-xl font-semibold text-white mb-1">Accessories</h4>
             <p class="text-gray-400 text-sm">Mirrors, towel rails, shelves, and storage solutions.</p>
@@ -423,7 +430,7 @@
         </article>
       </div>
     </div>
-        </section>
+
 
         <!-- Testimonials Section -->
         <section id="testimonials" class="py-20 bg-[#1E1E1E]">
@@ -457,7 +464,7 @@
             </div>
         </section>
 
-   <!-- Gallery Section -->
+     <!-- Gallery Section -->
 <section id="gallery" class="py-20">
   <div class="container mx-auto px-6">
     <div class="text-center mb-12 fade-in-up">
@@ -468,7 +475,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 fade-in-up">
       <!-- Showroom 1 -->
       <figure class="overflow-hidden rounded-xl border border-gray-800">
-        <img src="https://placehold.co/600x400/1e1e1e/c0a080?text=Showroom+1"
+        <img src="images/gallery/showroom-1.jpg"
              alt="GTSS showroom tile display"
              class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
              loading="lazy">
@@ -476,7 +483,7 @@
 
       <!-- Showroom 2 -->
       <figure class="overflow-hidden rounded-xl border border-gray-800">
-        <img src="https://placehold.co/600x400/1e1e1e/c0a080?text=Showroom+2"
+        <img src="images/gallery/showroom-2.jpg"
              alt="Premium tile collection wall in GTSS showroom"
              class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
              loading="lazy">
@@ -484,7 +491,7 @@
 
       <!-- Bathroom project -->
       <figure class="overflow-hidden rounded-xl border border-gray-800">
-        <img src="https://placehold.co/600x400/1e1e1e/c0a080?text=Project%3A+Bathroom"
+        <img src="images/gallery/project-bathroom.jpg"
              alt="Luxury bathroom with GTSS fittings"
              class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
              loading="lazy">
@@ -492,7 +499,7 @@
 
       <!-- Kitchen project -->
       <figure class="overflow-hidden rounded-xl border border-gray-800">
-        <img src="https://placehold.co/600x400/1e1e1e/c0a080?text=Project%3A+Kitchen"
+        <img src="images/gallery/project-kitchen.jpg"
              alt="Modern kitchen backsplash with designer tiles"
              class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
              loading="lazy">
@@ -500,7 +507,7 @@
 
       <!-- Living room project -->
       <figure class="overflow-hidden rounded-xl border border-gray-800">
-        <img src="https://placehold.co/600x400/1e1e1e/c0a080?text=Project%3A+Living"
+        <img src="images/gallery/project-living.jpg"
              alt="Living room feature wall with large-format slabs"
              class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
              loading="lazy">
@@ -508,13 +515,13 @@
 
       <!-- Outdoor project -->
       <figure class="overflow-hidden rounded-xl border border-gray-800">
-        <img src="https://placehold.co/600x400/1e1e1e/c0a080?text=Project%3A+Outdoor"
+        <img src="images/gallery/project-outdoor.jpg"
              alt="Outdoor flooring with anti-skid tiles"
              class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
              loading="lazy">
       </figure>
     </div>
-    </section>    
+    </section>   
         <!-- Visit Us Section -->
         <section id="visit" class="py-20 bg-[#1E1E1E]">
             <div class="container mx-auto px-6">
@@ -553,7 +560,7 @@
         </div>
     </footer>
     
-    <!-- AI DesignData Widget -->
+    <!-- AI Chatbot Widget -->
     <div id="chatbot-container" class="fixed bottom-6 right-6 z-50">
         <div id="chatbot-window" class="absolute bottom-20 right-0 w-80 sm:w-96 bg-[#1E1E1E] rounded-lg shadow-2xl p-4 border border-gray-700 transform scale-95 opacity-0 hidden">
             <div class="flex justify-between items-center border-b border-gray-700 pb-2 mb-4">
@@ -584,15 +591,8 @@
 
 
     <script>
-        // --- CONSTANTS ---
-        // For local development, use: 'http://localhost:3000/api/proxy'
-        // For Vercel deployment, use: '/api/proxy'
-        const SERVER_URL = '/api/proxy';
-
-        // --- INITIALIZATION ---
+        // Feather Icons
         feather.replace();
-
-        // --- UI EVENT LISTENERS ---
 
         // Mobile Menu Toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -618,6 +618,7 @@
                 header.classList.remove('shadow-lg', 'shadow-black/50');
             }
 
+            // Back to top button visibility
             if (window.scrollY > 300) {
                 backToTopButton.classList.remove('opacity-0', 'translate-y-4');
             } else {
@@ -638,25 +639,27 @@
             observer.observe(el);
         });
 
-        // Active Nav Link on Scroll
+        // --- Active Nav Link on Scroll ---
         const sections = document.querySelectorAll('main section[id]');
         const navLinks = document.querySelectorAll('#desktop-nav a.nav-link');
+
         window.addEventListener('scroll', () => {
             let current = '';
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 100) { // offset
+                if (pageYOffset >= sectionTop - 100) { // 100 is an offset
                     current = section.getAttribute('id');
                 }
             });
 
             navLinks.forEach(link => {
-                link.classList.remove('active', 'text-white');
+                link.classList.remove('active');
                 if (link.getAttribute('href').substring(1) === current) {
-                    link.classList.add('active', 'text-white');
+                    link.classList.add('active');
                 }
             });
         });
+
 
         // AI Design Studio Tabs
         const tabDescribe = document.getElementById('tab-describe');
@@ -664,22 +667,27 @@
         const contentDescribe = document.getElementById('content-describe');
         const contentUpload = document.getElementById('content-upload');
 
-        function switchTab(activeTab, inactiveTab, activeContent, inactiveContent) {
-            activeTab.classList.add('border-[#C0A080]', 'text-[#C0A080]');
-            activeTab.classList.remove('border-transparent', 'text-gray-500');
-            inactiveTab.classList.add('border-transparent', 'text-gray-500');
-            inactiveTab.classList.remove('border-[#C0A080]', 'text-[#C0A080]');
-            activeContent.style.display = 'block';
-            inactiveContent.style.display = 'none';
-        }
+        tabDescribe.addEventListener('click', () => {
+            tabDescribe.classList.add('border-[#C0A080]', 'text-[#C0A080]');
+            tabDescribe.classList.remove('border-transparent', 'text-gray-500');
+            tabUpload.classList.add('border-transparent', 'text-gray-500');
+            tabUpload.classList.remove('border-[#C0A080]', 'text-[#C0A080]');
+            contentDescribe.style.display = 'block';
+            contentUpload.style.display = 'none';
+        });
 
-        tabDescribe.addEventListener('click', () => switchTab(tabDescribe, tabUpload, contentDescribe, contentUpload));
-        tabUpload.addEventListener('click', () => switchTab(tabUpload, tabDescribe, contentUpload, contentDescribe));
+        tabUpload.addEventListener('click', () => {
+            tabUpload.classList.add('border-[#C0A080]', 'text-[#C0A080]');
+            tabUpload.classList.remove('border-transparent', 'text-gray-500');
+            tabDescribe.classList.add('border-transparent', 'text-gray-500');
+            tabDescribe.classList.remove('border-[#C0A080]', 'text-[#C0A080]');
+            contentUpload.style.display = 'block';
+            contentDescribe.style.display = 'none';
+        });
 
-        // --- API & LOGIC FUNCTIONS ---
-
+      
         // Function to handle API call with retry logic
-        async function fetchWithExponentialBackoff(url, payload, maxRetries = 3) {
+        async function fetchWithExponentialBackoff(url, payload, maxRetries = 5) {
             let attempt = 0;
             while (attempt < maxRetries) {
                 try {
@@ -688,10 +696,16 @@
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
                     });
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
+                    if (response.ok) {
+                        return response.json();
                     }
-                    return response.json();
+                    if (response.status === 429 || response.status >= 500) {
+                        // Throttling or server error, so retry
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    } else {
+                        // Client-side error, don't retry
+                        return response.json(); 
+                    }
                 } catch (error) {
                     attempt++;
                     if (attempt >= maxRetries) {
@@ -706,10 +720,11 @@
         }
         
         // ---- 1. AI Design Consultant (Text to Design) ----
-        const generateDesignBtn = document.getElementById('generate-design-btn');
         const designPrompt = document.getElementById('design-prompt');
-        const designResultDiv = document.getElementById('design-result');
+        const generateDesignBtn = document.getElementById('generate-design-btn');
+        const designResultContainer = document.getElementById('design-result-container');
         const designPlaceholder = document.getElementById('design-placeholder');
+        const designResultDiv = document.getElementById('design-result');
         const designError = document.getElementById('design-error');
         const btnText = document.getElementById('btn-text');
         const btnLoader = document.getElementById('btn-loader');
@@ -718,29 +733,55 @@
             const prompt = designPrompt.value.trim();
             if (!prompt) return;
 
+            // Show loader, hide text
             btnText.classList.add('hidden');
             btnLoader.classList.remove('hidden');
             generateDesignBtn.disabled = true;
 
+            // Reset UI
             designPlaceholder.classList.add('hidden');
             designResultDiv.classList.add('hidden');
             designError.classList.add('hidden');
+            
+            const systemPrompt = `You are a world-class interior designer for a luxury tile and bathware brand called GTSS. A customer will describe a room. Your task is to generate a concise, inspiring design concept based on their description.
+            
+            **Rules:**
+            - The response MUST be in JSON format.
+            - The JSON schema MUST be: { "title": "string", "description": "string", "tileSuggestion": "string", "bathwareSuggestion": "string" }
+            - The suggestions MUST be general types of products (e.g., "Large format matte black porcelain tiles"), not specific GTSS product names.
+            - The tone should be elegant, professional, and inspiring.
+            - **Crucially, write in simple, conversational English.** The language should be very easy to understand for someone who is not a native English speaker. Avoid sophisticated vocabulary and complex sentences.
+            - Keep the description to 2-3 sentences.`;
 
-            try {
-                const designData = await fetchWithExponentialBackoff(SERVER_URL, { type: "design", prompt });
-                if (designData && designData.title) {
-                    displayDesign(designData, prompt);
-                } else {
-                    throw new Error("Invalid response from server.");
+            const payload = {
+                contents: [{ parts: [{ text: `User prompt: "${prompt}"` }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            title: { type: "STRING" },
+                            description: { type: "STRING" },
+                            tileSuggestion: { type: "STRING" },
+                            bathwareSuggestion: { type: "STRING" }
+                        },
+                        required: ["title", "description", "tileSuggestion", "bathwareSuggestion"]
+                    }
                 }
-            } catch (error) {
-                console.error('Error generating design:', error);
-                designError.classList.remove('hidden');
-            } finally {
-                btnText.classList.remove('hidden');
-                btnLoader.classList.add('hidden');
-                generateDesignBtn.disabled = false;
-            }
+            };
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+        try {
+    const designData = await fetchWithExponentialBackoff("/api/proxy", {
+      type: "design",
+      prompt
+    });
+    displayDesign(designData, prompt);
+} catch (error) {
+    console.error('Error generating design:', error);
+    designError.classList.remove('hidden');
+}
         });
 
         function displayDesign(design, prompt) {
@@ -783,19 +824,27 @@
             visualizeResultDiv.innerHTML = `<p class="text-center text-gray-400">Generating your vision... this may take a moment.</p>`;
             visualizeResultDiv.classList.remove('hidden');
             
-            try {
-                const { dataUrl } = await fetchWithExponentialBackoff(SERVER_URL, { type: "image", prompt });
-                if (!dataUrl) throw new Error("No image data received.");
-                visualizeResultDiv.innerHTML = `<img src="${dataUrl}" alt="AI generated design concept" class="rounded-lg shadow-lg w-full">`;
-            } catch (error) {
-                console.error("Error generating image:", error);
-                visualizeResultDiv.innerHTML = `<p class="text-red-500 text-center">Sorry, we couldn't create a visual this time. Please try again.</p>`;
-            } finally {
-                visualizeBtnText.classList.remove('hidden');
-                visualizeBtnLoader.classList.add('hidden');
-                button.disabled = false;
-                button.style.display = 'none'; // Hide button after use
-            }
+            const payload = {
+                contents: [{
+                    parts: [{ text: `Generate a photorealistic, elegant interior design image of: ${prompt}. The style should be luxurious and modern, suitable for an architectural magazine.` }]
+                }],
+                generationConfig: {
+                    responseModalities: ['TEXT', 'IMAGE']
+                },
+            };
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image-preview:generateContent?key=${apiKey}`;
+            
+      try {
+    const { dataUrl } = await fetchWithExponentialBackoff("/api/proxy", {
+      type: "image",
+      prompt
+    });
+    if (!dataUrl) throw new Error("No image data");
+    visualizeResultDiv.innerHTML = `<img src="${dataUrl}" alt="AI generated design concept" class="rounded-lg shadow-lg w-full">`;
+} catch (error) {
+    console.error("Error generating image:", error);
+    visualizeResultDiv.innerHTML = `<p class="text-red-500 text-center">Sorry, we couldn't create a visual this time. Please try again.</p>`;
+}
         }
         
         // --- 3. AI Style Finder (Image to Text) ---
@@ -803,8 +852,8 @@
         const generateStyleBtn = document.getElementById('generate-style-btn');
         const imagePreview = document.getElementById('image-preview');
         const imagePreviewContainer = document.getElementById('image-preview-container');
-        const styleResultDiv = document.getElementById('style-result');
         const stylePlaceholder = document.getElementById('style-placeholder');
+        const styleResultDiv = document.getElementById('style-result');
         const styleError = document.getElementById('style-error');
         const styleBtnText = document.getElementById('style-btn-text');
         const styleBtnLoader = document.getElementById('style-btn-loader');
@@ -839,21 +888,53 @@
             styleResultDiv.classList.add('hidden');
             styleError.classList.add('hidden');
             
-            try {
-                const styleData = await fetchWithExponentialBackoff(SERVER_URL, { type: "style", imageData: base64ImageData });
-                if (styleData && styleData.primaryStyle) {
-                    displayStyle(styleData);
-                } else {
-                    throw new Error("Invalid response from server.");
+            const systemPrompt = `You are a professional interior design analyst for a luxury brand, GTSS. Analyze the provided image of a room and deconstruct its style.
+            
+            **Rules:**
+            - The response MUST be in JSON format.
+            - The JSON schema MUST be: { "primaryStyle": "string", "keyMood": "string", "colorPalette": "string", "materialProfile": "string", "guidance": "string" }
+            - The tone should be expert, insightful, and helpful.
+            - The guidance should be a general statement about how to achieve this look with types of tiles and bathware, without mentioning specific product names.
+            - **Crucially, write in simple, conversational English.** The language should be very easy to understand for someone who is not a native English speaker. Avoid sophisticated vocabulary and complex sentences.`;
+
+            const payload = {
+                contents: [
+                    {
+                        role: "user",
+                        parts: [
+                            { text: "Analyze this room's style." },
+                            { inlineData: { mimeType: "image/jpeg", data: base64ImageData } }
+                        ]
+                    }
+                ],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+                generationConfig: {
+                     responseMimeType: "application/json",
+                     responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            primaryStyle: { type: "STRING" },
+                            keyMood: { type: "STRING" },
+                            colorPalette: { type: "STRING" },
+                            materialProfile: { type: "STRING" },
+                            guidance: { type: "STRING" }
+                        },
+                        required: ["primaryStyle", "keyMood", "colorPalette", "materialProfile", "guidance"]
+                    }
                 }
-            } catch(error) {
-                console.error('Error analyzing style:', error);
-                styleError.classList.remove('hidden');
-            } finally {
-                styleBtnText.classList.remove('hidden');
-                styleBtnLoader.classList.add('hidden');
-                generateStyleBtn.disabled = false;
-            }
+            };
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+           try {
+    const styleData = await fetchWithExponentialBackoff("/api/proxy", {
+        type: "style",
+        base64Image: base64ImageData
+    });
+    displayStyle(styleData);
+} catch(error) {
+    console.error('Error analyzing style:', error);
+    styleError.classList.remove('hidden');
+}
         });
         
         function displayStyle(style) {
@@ -918,20 +999,13 @@
         function addMessageToChat(sender, message) {
             const messageEl = document.createElement('div');
             messageEl.className = `message-bubble p-3 rounded-lg ${sender === 'user' ? 'user-message self-end' : 'ai-message self-start'}`;
-            
-            // Basic markdown for bold text
-            message = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            messageEl.innerHTML = message;
-            
-            const messageContainer = document.createElement('div');
-            messageContainer.className = 'flex flex-col';
-            messageContainer.appendChild(messageEl);
-
-            chatMessages.appendChild(messageContainer);
+            messageEl.textContent = message;
+            chatMessages.appendChild(messageEl);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
         function sanitizeInput(message) {
+            // Regex for various phone number formats, including Indian numbers
             const phoneRegex = /(?:\+?91)?[-\s]?[6-9]\d{9}|(?:\+?\d{1,4}[-.\s]?)?(?:\(?\d{1,4}\)?[-.\s]?)?[\d\s.-]{7,15}/g;
             const emailRegex = /[\w-\.]+@([\w-]+\.)+[\w-]{2,4}/g;
 
@@ -949,32 +1023,48 @@
 
             const sanitizedMessage = sanitizeInput(userMessage);
             
+            // Add a temporary "typing" indicator for the AI
             const typingIndicator = document.createElement('div');
-            typingIndicator.className = 'message-bubble ai-message self-start p-3 rounded-lg animate-pulse';
+            typingIndicator.className = 'ai-message self-start p-3 rounded-lg animate-pulse';
             typingIndicator.textContent = '...';
-            const typingContainer = document.createElement('div');
-            typingContainer.className = 'flex flex-col';
-            typingContainer.appendChild(typingIndicator);
-            chatMessages.appendChild(typingContainer);
+            chatMessages.appendChild(typingIndicator);
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
             chatHistory.push({ role: "user", parts: [{ text: sanitizedMessage }] });
 
+            const systemPrompt = `You are a friendly and professional AI Design Assistant for GTSS, a luxury tile and bathware company.
+            
+            **Your Tasks:**
+            1.  Answer questions about product types, design trends, and company history.
+            2.  If a user wants to book a visit, ask for their name and phone number.
+            3.  If you see '[CONTACT INFO HIDDEN]' in the user's message, it means they have provided contact details. Your response MUST be: 'Thank you for providing your details. I've passed them to our team securely, and an expert will contact you shortly.' Do NOT ask for the information again.
+            4.  Keep answers concise and helpful. Do NOT recommend specific product names.
+            5.  **Crucially, write in simple, conversational English.** Your responses should be very easy to understand for someone who is not a native English speaker. Avoid sophisticated vocabulary and complex sentences.`;
+
+            const payload = {
+                contents: chatHistory,
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
             try {
-                const { reply } = await fetchWithExponentialBackoff(SERVER_URL, { type: "chat", history: chatHistory });
-                chatMessages.removeChild(typingContainer);
-                
-                if (reply) {
-                    addMessageToChat('ai', reply);
-                    chatHistory.push({ role: "model", parts: [{ text: reply }] });
-                } else {
-                    addMessageToChat('ai', "I'm sorry, I'm having trouble connecting right now. Please try again in a moment.");
-                }
-            } catch (error) {
-                console.error("Chatbot error:", error);
-                chatMessages.removeChild(typingContainer);
-                addMessageToChat('ai', "My apologies, I encountered an error. Could you please rephrase your question?");
-            }
+    const { reply } = await fetchWithExponentialBackoff("/api/proxy", {
+      type: "chat",
+      history: chatHistory
+    });
+
+    chatMessages.removeChild(typingIndicator);
+    if (reply) {
+      addMessageToChat('ai', reply);
+      chatHistory.push({ role: "model", parts: [{ text: reply }] });
+    } else {
+      addMessageToChat('ai', "I'm sorry, I'm having trouble connecting right now. Please try again in a moment.");
+    }
+} catch (error) {
+    console.error("Chatbot error:", error);
+    chatMessages.removeChild(typingIndicator);
+    addMessageToChat('ai', "My apologies, I encountered an error. Could you please rephrase your question?");
+}
         }
 
         chatSendBtn.addEventListener('click', handleChatSend);
@@ -983,7 +1073,8 @@
                 handleChatSend();
             }
         });
+
     </script>
 </body>
-</html>
 
+</html>
