@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: "15mb",
+      sizeLimit: "15mb", // Allow base64 images
     },
   },
 };
@@ -19,20 +19,20 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Server configuration error: Missing API key." });
   }
 
-  // Define URLs for different models
-  const FLASH_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
-  const IMAGEN_API_URL = `https://imagegeneration.googleapis.com/v1beta/images:generate?key=${API_KEY}`; // NOTE: This is for Imagen 2, check your access.
+  // Using the most stable and universally available model names.
+  const TEXT_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
+  const VISION_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=${API_KEY}`;
+  const IMAGEN_API_URL = `https://imagegeneration.googleapis.com/v1beta/images:generate?key=${API_KEY}`;
 
   let url;
   let body;
 
   try {
-    // Construct the request based on the type
     switch (type) {
       case "design":
-        url = FLASH_API_URL;
+        url = TEXT_MODEL_URL;
         const { prompt: designPrompt } = req.body;
-        const designSystemPrompt = `You are a world-class interior designer for a luxury tile and bathware brand called GTSS...`; // Keep your prompt
+        const designSystemPrompt = `You are a world-class interior designer...`; // Your full prompt here
         body = {
           contents: [{ parts: [{ text: `User prompt: "${designPrompt}"` }] }],
           systemInstruction: { parts: [{ text: designSystemPrompt }] },
@@ -51,17 +51,30 @@ export default async function handler(req, res) {
           },
         };
         break;
-      
+
       case "style":
-        url = FLASH_API_URL;
+        url = VISION_MODEL_URL; // Vision requires a specific model
         const { base64Image } = req.body;
-        const styleSystemPrompt = `You are a professional interior design analyst for a luxury brand, GTSS...`; // Keep your prompt
+        const styleSystemPrompt = `You are a professional interior design analyst...`; // Your full prompt here
         body = {
             contents: [
               { role: "user", parts: [{ text: "Analyze this room's style." }, { inlineData: { mimeType: "image/jpeg", data: base64Image } }] }
             ],
             systemInstruction: { parts: [{ text: styleSystemPrompt }] },
-            generationConfig: { responseMimeType: "application/json", /* ... your schema ... */ },
+            generationConfig: { 
+                responseMimeType: "application/json",
+                responseSchema: {
+                    type: "OBJECT",
+                    properties: {
+                        primaryStyle: { type: "STRING" },
+                        keyMood: { type: "STRING" },
+                        colorPalette: { type: "STRING" },
+                        materialProfile: { type: "STRING" },
+                        guidance: { type: "STRING" },
+                    },
+                    required: ["primaryStyle", "keyMood", "colorPalette", "materialProfile", "guidance"],
+                },
+             },
         };
         break;
 
@@ -72,9 +85,9 @@ export default async function handler(req, res) {
         break;
 
       case "chat":
-        url = FLASH_API_URL;
+        url = TEXT_MODEL_URL;
         const { history } = req.body;
-        const chatSystemPrompt = `You are a friendly and professional AI Design Assistant for GTSS...`; // Keep your prompt
+        const chatSystemPrompt = `You are a friendly and professional AI Design Assistant...`; // Your full prompt here
         body = {
             contents: history,
             systemInstruction: { parts: [{ text: chatSystemPrompt }] },
@@ -85,7 +98,6 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: "Unknown type" });
     }
 
-    // Make the API call to Google
     const googleResponse = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -94,13 +106,11 @@ export default async function handler(req, res) {
 
     const data = await googleResponse.json();
 
-    // **NEW** Check for errors returned by Google
     if (!googleResponse.ok || data.error) {
       console.error("Error from Google API:", data);
       throw new Error(data.error?.message || `Google API responded with status ${googleResponse.status}`);
     }
-    
-    // Extract the correct response based on the API called
+
     let finalResponse;
     if (type === 'image') {
         const dataUrl = data?.images?.[0]?.image?.base64Data ? `data:image/png;base64,${data.images[0].image.base64Data}` : null;
@@ -110,7 +120,7 @@ export default async function handler(req, res) {
         const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
         if (!reply) throw new Error("No chat reply returned from Google");
         finalResponse = { reply };
-    } else { // For design and style
+    } else { 
         const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
         if (!text) throw new Error("No content returned from Google");
         finalResponse = JSON.parse(text);
