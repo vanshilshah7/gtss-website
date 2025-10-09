@@ -1,14 +1,3 @@
-You're right, let's use the exact model name that you've seen work. The rapid updates to Google's model names have been the primary issue.
-
-Here is the final, corrected code. This version sets all text-based generation to use the `gemini-2.5-pro` model, while keeping the specific models for vision (analyzing an image) and image generation that require them.
-
-Please **replace the entire content of your `gtss-website/api/proxy.js` file** with the code below.
-
------
-
-### Final Code for `api/proxy.js`
-
-```javascript
 import fetch from "node-fetch";
 
 export const config = {
@@ -32,7 +21,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Server configuration error: Missing API key." });
   }
 
-  // Using the specific models for each task, with gemini-2.5-pro for text.
+  // Using the models you confirmed were working
   const TEXT_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=${API_KEY}`;
   const VISION_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=${API_KEY}`;
   const IMAGE_GEN_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${API_KEY}`;
@@ -65,9 +54,9 @@ export default async function handler(req, res) {
           },
         };
         break;
-      
+
       case "style":
-        url = VISION_MODEL_URL; // Vision requires a specific model
+        url = VISION_MODEL_URL;
         const { base64Image } = req.body;
         const styleSystemPrompt = `You are a professional interior design analyst for a luxury brand, GTSS. Analyze the provided image of a room and deconstruct its style.\n\nRules:\n- The response MUST be in JSON format.\n- The JSON schema MUST be: { "primaryStyle": "string", "keyMood": "string", "colorPalette": "string", "materialProfile": "string", "guidance": "string" }\n- The tone should be expert, insightful, and helpful.\n- The guidance should be a general statement about how to achieve this look with types of tiles and bathware, without mentioning specific product names.\n- Write in simple, conversational English.`;
         body = {
@@ -132,12 +121,12 @@ export default async function handler(req, res) {
     let finalResponse;
     if (type === 'image') {
       const imagePart = data.candidates[0].content.parts.find(part => part.inlineData);
-      
+
       if (!imagePart) {
         console.error("No image data found in Google's response. Full response:", JSON.stringify(data, null, 2));
         throw new Error("No image data returned from Google");
       }
-      
+
       const base64Data = imagePart.inlineData.data;
       const dataUrl = `data:image/png;base64,${base64Data}`;
       finalResponse = { dataUrl };
@@ -159,4 +148,3 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: e.message || "An unknown server error occurred." });
   }
 }
-```
