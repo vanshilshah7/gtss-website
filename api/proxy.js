@@ -18,7 +18,12 @@ export default async function handler(req, res) {
 
   const { type } = req.body || {};
   const API_KEY = process.env.GOOGLE_API_KEY; // <-- set in your hosting env
-  if (!API_KEY) return res.status(500).json({ error: "Missing GOOGLE_API_KEY env var" });
+
+  // Essential check to ensure the API key is configured on the server
+  if (!API_KEY) {
+    console.error("Missing GO_API_KEY environment variable on the server.");
+    return res.status(500).json({ error: "Server configuration error: Missing API key." });
+  }
 
   try {
     if (type === "design") {
@@ -150,81 +155,3 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: e.message || "Server error" });
   }
 }
-
-
-// ==================================
-// 2) Express.js alternative (server.js)
-// ==================================
-// If you're not on Next.js, use this basic Express server. Save as server.js
-// and deploy to your Node host (Render, Railway, VPS). Point the front-end to /api/proxy
-
-/*
-import express from 'express';
-import fetch from 'node-fetch';
-
-const app = express();
-app.use(express.json({ limit: '15mb' }));
-
-const API_KEY = process.env.GOOGLE_API_KEY;
-
-app.post('/api/proxy', async (req, res) => {
-  // paste the same switch logic from the Next.js handler above
-});
-
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log('Server running on ' + port));
-*/
-
-
-// ==================================
-// 3) Front-end patches (apply in your HTML <script>)
-// ==================================
-// A) Remove UNUSED apiUrl constants to avoid confusion (they aren't used).
-// B) Keep masking for the model, but store the raw message separately if you plan to send details to your CRM.
-//    Example minimal tweak to handle raw + masked:
-/*
-function sanitizeInput(message) {
-  const phoneRegex = /(?:\+?91)?[-\s]?[6-9]\d{9}|(?:\+?\d{1,4}[-.\s]?)?(?:\(?\d{1,4}\)?[-.\s]?)?[\d\s.-]{7,15}/g;
-  const emailRegex = /[\w-\.]+@([\w-]+\.)+[\w-]{2,4}/g;
-  let masked = message.replace(phoneRegex, '[CONTACT INFO HIDDEN]').replace(emailRegex, '[CONTACT INFO HIDDEN]');
-  return { masked, hadPII: masked !== message };
-}
-
-async function handleChatSend() {
-  const userMessageRaw = chatInput.value.trim();
-  if (!userMessageRaw) return;
-  addMessageToChat('user', userMessageRaw);
-  chatInput.value = '';
-
-  const { masked, hadPII } = sanitizeInput(userMessageRaw);
-  // TODO: if (hadPII) send userMessageRaw securely to your backend CRM endpoint.
-
-  const typingIndicator = document.createElement('div');
-  typingIndicator.className = 'ai-message self-start p-3 rounded-lg animate-pulse';
-  typingIndicator.textContent = '...';
-  chatMessages.appendChild(typingIndicator);
-
-  chatHistory.push({ role: 'user', parts: [{ text: masked }] });
-
-  try {
-    const { reply } = await fetchWithExponentialBackoff('/api/proxy', { type: 'chat', history: chatHistory });
-    chatMessages.removeChild(typingIndicator);
-    addMessageToChat('ai', reply);
-    chatHistory.push({ role: 'model', parts: [{ text: reply }] });
-  } catch (err) {
-    chatMessages.removeChild(typingIndicator);
-    addMessageToChat('ai', 'My apologies, I encountered an error. Could you please rephrase your question?');
-  }
-}
-*/
-
-// C) No other JS changes are required; your existing fetchWithExponentialBackoff('/api/proxy', ...) calls will work once the proxy is deployed and GOOGLE_API_KEY is set.
-
-// ==================================
-// 4) Deployment checklist
-// ==================================
-// - Set env var GOOGLE_API_KEY in your hosting provider (Vercel/Netlify/Render). Do NOT expose it on the client.
-// - If using Vercel + Next.js: push /pages/api/proxy.js and redeploy. The endpoint will be available at /api/proxy.
-// - Ensure your domain uses HTTPS. Mixed content will block some browser APIs.
-// - Confirm your Google AI Studio project has access to: \n  * gemini-1.5-flash (text + vision) \n  * Imagen 3 (image generation). If not, the proxy will return a friendly 400 and your UI already shows a polite error.
-// - If you host Express separately, allow CORS from your site origin.
