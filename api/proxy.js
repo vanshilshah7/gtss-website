@@ -21,8 +21,8 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Server configuration error: Missing API key." });
   }
 
-  // Using the most stable and universally available model names
-  const TEXT_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
+  // UPDATED: Using gemini-2.5-flash as requested
+  const TEXT_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
   const VISION_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=${API_KEY}`;
   const IMAGEN_API_URL = `https://imagegeneration.googleapis.com/v1beta/images:generate?key=${API_KEY}`;
 
@@ -34,7 +34,7 @@ export default async function handler(req, res) {
       case "design":
         url = TEXT_MODEL_URL;
         const { prompt: designPrompt } = req.body;
-        const designSystemPrompt = `You are a world-class interior designer for a luxury tile and bathware brand called GTSS...`; // Your full prompt here
+        const designSystemPrompt = `You are a world-class interior designer...`; // Your full prompt here
         body = {
           contents: [{ parts: [{ text: `User prompt: "${designPrompt}"` }] }],
           systemInstruction: { parts: [{ text: designSystemPrompt }] },
@@ -55,7 +55,7 @@ export default async function handler(req, res) {
         break;
 
       case "style":
-        url = VISION_MODEL_URL;
+        url = VISION_MODEL_URL; // Vision requires a specific model
         const { base64Image } = req.body;
         const styleSystemPrompt = `You are a professional interior design analyst...`; // Your full prompt here
         body = {
