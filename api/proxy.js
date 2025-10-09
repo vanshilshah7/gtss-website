@@ -24,7 +24,6 @@ export default async function handler(req, res) {
   // Correct model URLs for each function
   const TEXT_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
   const VISION_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=${API_KEY}`;
-  // UPDATED: Using the correct Gemini model for Image Generation
   const IMAGE_GEN_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${API_KEY}`;
 
   let url;
@@ -63,17 +62,14 @@ export default async function handler(req, res) {
         break;
 
       case "image":
-        url = IMAGE_GEN_MODEL_URL; // Use the Gemini Image Gen URL
+        url = IMAGE_GEN_MODEL_URL;
         const { prompt: imagePrompt } = req.body;
-        // The body structure is different from Imagen
+        // **FIX:** The body for gemini-2.5-flash-image does not use generationConfig for this purpose.
+        // It simply needs the text prompt. The model knows to return an image.
         body = {
           contents: [{
             parts: [{ text: imagePrompt }]
-          }],
-          generationConfig: {
-            // Specify that you want an image back
-            responseMimeType: "image/png"
-          }
+          }]
         };
         break;
 
@@ -106,7 +102,7 @@ export default async function handler(req, res) {
 
     let finalResponse;
     if (type === 'image') {
-      // The response structure for Gemini Image Gen is different
+      // **FIX:** The response structure for this model contains the image in inlineData.
       const base64Data = data?.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
       if (!base64Data) throw new Error("No image data returned from Google");
       const dataUrl = `data:image/png;base64,${base64Data}`;
