@@ -21,11 +21,10 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Server configuration error: Missing API key." });
   }
 
-  // Correct model URLs for each function
-  const TEXT_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+  // UPDATED: Using gemini-2.5-flash as requested
+  const TEXT_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
   const VISION_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=${API_KEY}`;
-  // UPDATED: Using the correct Gemini model for Image Generation
-  const IMAGE_GEN_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${API_KEY}`;
+  const IMAGEN_API_URL = `https://imagegeneration.googleapis.com/v1beta/images:generate?key=${API_KEY}`;
 
   let url;
   let body;
@@ -41,13 +40,22 @@ export default async function handler(req, res) {
           systemInstruction: { parts: [{ text: designSystemPrompt }] },
           generationConfig: {
             responseMimeType: "application/json",
-            responseSchema: { /* ... your schema ... */ },
+            responseSchema: {
+              type: "OBJECT",
+              properties: {
+                title: { type: "STRING" },
+                description: { type: "STRING" },
+                tileSuggestion: { type: "STRING" },
+                bathwareSuggestion: { type: "STRING" },
+              },
+              required: ["title", "description", "tileSuggestion", "bathwareSuggestion"],
+            },
           },
         };
         break;
 
       case "style":
-        url = VISION_MODEL_URL;
+        url = VISION_MODEL_URL; // Vision requires a specific model
         const { base64Image } = req.body;
         const styleSystemPrompt = `You are a professional interior design analyst...`; // Your full prompt here
         body = {
@@ -57,24 +65,25 @@ export default async function handler(req, res) {
           systemInstruction: { parts: [{ text: styleSystemPrompt }] },
           generationConfig: {
             responseMimeType: "application/json",
-            responseSchema: { /* ... your schema ... */ },
+            responseSchema: {
+              type: "OBJECT",
+              properties: {
+                primaryStyle: { type: "STRING" },
+                keyMood: { type: "STRING" },
+                colorPalette: { type: "STRING" },
+                materialProfile: { type: "STRING" },
+                guidance: { type: "STRING" },
+              },
+              required: ["primaryStyle", "keyMood", "colorPalette", "materialProfile", "guidance"],
+            },
           },
         };
         break;
 
       case "image":
-        url = IMAGE_GEN_MODEL_URL; // Use the Gemini Image Gen URL
+        url = IMAGEN_API_URL;
         const { prompt: imagePrompt } = req.body;
-        // The body structure is different from Imagen
-        body = {
-          contents: [{
-            parts: [{ text: imagePrompt }]
-          }],
-          generationConfig: {
-            // Specify that you want an image back
-            responseMimeType: "image/png"
-          }
-        };
+        body = { prompt: { text: imagePrompt } };
         break;
 
       case "chat":
@@ -106,10 +115,8 @@ export default async function handler(req, res) {
 
     let finalResponse;
     if (type === 'image') {
-      // The response structure for Gemini Image Gen is different
-      const base64Data = data?.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
-      if (!base64Data) throw new Error("No image data returned from Google");
-      const dataUrl = `data:image/png;base64,${base64Data}`;
+      const dataUrl = data?.images?.[0]?.image?.base64Data ? `data:image/png;base64,${data.images[0].image.base64Data}` : null;
+      if (!dataUrl) throw new Error("No image data returned from Google");
       finalResponse = { dataUrl };
     } else if (type === 'chat') {
       const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
