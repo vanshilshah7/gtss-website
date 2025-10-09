@@ -19,8 +19,8 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Server configuration error: Missing API key." });
   }
 
-  // **FIX:** Using the latest, most stable model names as per Google's current documentation.
-  const TEXT_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
+  // **FINAL FIX:** Using the most stable and universally available model names.
+  const TEXT_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
   const VISION_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=${API_KEY}`;
   const IMAGEN_API_URL = `https://imagegeneration.googleapis.com/v1beta/images:generate?key=${API_KEY}`;
 
@@ -32,7 +32,8 @@ export default async function handler(req, res) {
       case "design":
         url = TEXT_MODEL_URL;
         const { prompt: designPrompt } = req.body;
-        const designSystemPrompt = `You are a world-class interior designer for a luxury tile and bathware brand called GTSS...`; // Keep your full prompt
+        const designSystemPrompt = `You are a world-class interior designer for a luxury tile and bathware brand called GTSS. A customer will describe a room. Your task is to generate a concise, inspiring design concept based on their description.
+\nRules:\n- The response MUST be in JSON format.\n- The JSON schema MUST be: { "title": "string", "description": "string", "tileSuggestion": "string", "bathwareSuggestion": "string" }\n- The suggestions MUST be general types of products (e.g., "Large format matte black porcelain tiles"), not specific GTSS product names.\n- The tone should be elegant, professional, and inspiring.\n- Crucially, write in simple, conversational English.\n- Keep the description to 2-3 sentences.`;
         body = {
           contents: [{ parts: [{ text: `User prompt: "${designPrompt}"` }] }],
           systemInstruction: { parts: [{ text: designSystemPrompt }] },
@@ -55,7 +56,7 @@ export default async function handler(req, res) {
       case "style":
         url = VISION_MODEL_URL; // Vision requires a specific model
         const { base64Image } = req.body;
-        const styleSystemPrompt = `You are a professional interior design analyst for a luxury brand, GTSS...`; // Keep your full prompt
+        const styleSystemPrompt = `You are a professional interior design analyst for a luxury brand, GTSS. Analyze the provided image of a room and deconstruct its style.\n\nRules:\n- The response MUST be in JSON format.\n- The JSON schema MUST be: { "primaryStyle": "string", "keyMood": "string", "colorPalette": "string", "materialProfile": "string", "guidance": "string" }\n- The tone should be expert, insightful, and helpful.\n- The guidance should be a general statement about how to achieve this look with types of tiles and bathware, without mentioning specific product names.\n- Write in simple, conversational English.`;
         body = {
             contents: [
               { role: "user", parts: [{ text: "Analyze this room's style." }, { inlineData: { mimeType: "image/jpeg", data: base64Image } }] }
@@ -87,7 +88,7 @@ export default async function handler(req, res) {
       case "chat":
         url = TEXT_MODEL_URL;
         const { history } = req.body;
-        const chatSystemPrompt = `You are a friendly and professional AI Design Assistant for GTSS...`; // Keep your full prompt
+        const chatSystemPrompt = `You are a friendly and professional AI Design Assistant for GTSS, a luxury tile and bathware company.\n\nTasks:\n1) Answer questions about product types, design trends, and company history.\n2) If a user wants to book a visit, ask for their name and phone number.\n3) If you see '[CONTACT INFO HIDDEN]' in the user's message, your response MUST be: 'Thank you for providing your details. I've passed them to our team securely, and an expert will contact you shortly.'\n4) Keep answers concise and helpful. Do NOT recommend specific product names.\n5) Write in simple, conversational English.`;
         body = {
             contents: history,
             systemInstruction: { parts: [{ text: chatSystemPrompt }] },
