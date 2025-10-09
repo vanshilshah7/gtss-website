@@ -19,8 +19,8 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Server configuration error: Missing API key." });
   }
 
-  // Use the correct, stable model names
-  const TEXT_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.0-pro:generateContent?key=${API_KEY}`;
+  // **FIX:** Using the latest, most stable model names as per Google's current documentation.
+  const TEXT_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
   const VISION_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=${API_KEY}`;
   const IMAGEN_API_URL = `https://imagegeneration.googleapis.com/v1beta/images:generate?key=${API_KEY}`;
 
