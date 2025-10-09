@@ -21,9 +21,9 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Server configuration error: Missing API key." });
   }
 
-  // Using gemini-2.5-pro for vision tasks as requested. This will likely cause errors.
+  // Using the models you confirmed were working, and using gemini-2.5-pro for vision.
   const TEXT_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=${API_KEY}`;
-  const VISION_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=${API_KEY}`; // Changed from gemini-pro-vision
+  const VISION_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=${API_KEY}`; // Using 2.5-pro for vision as requested
   const IMAGE_GEN_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${API_KEY}`;
 
   let url;
