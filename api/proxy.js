@@ -19,8 +19,8 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Server configuration error: Missing API key." });
   }
 
-  // **FINAL FIX:** Using the most stable and universally available model names.
-  const TEXT_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
+  // **FINAL FIX:** Using the latest stable and recommended model names.
+  const TEXT_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
   const VISION_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=${API_KEY}`;
   const IMAGEN_API_URL = `https://imagegeneration.googleapis.com/v1beta/images:generate?key=${API_KEY}`;
 
@@ -52,7 +52,7 @@ export default async function handler(req, res) {
           },
         };
         break;
-
+      
       case "style":
         url = VISION_MODEL_URL; // Vision requires a specific model
         const { base64Image } = req.body;
@@ -87,50 +87,3 @@ export default async function handler(req, res) {
 
       case "chat":
         url = TEXT_MODEL_URL;
-        const { history } = req.body;
-        const chatSystemPrompt = `You are a friendly and professional AI Design Assistant for GTSS, a luxury tile and bathware company.\n\nTasks:\n1) Answer questions about product types, design trends, and company history.\n2) If a user wants to book a visit, ask for their name and phone number.\n3) If you see '[CONTACT INFO HIDDEN]' in the user's message, your response MUST be: 'Thank you for providing your details. I've passed them to our team securely, and an expert will contact you shortly.'\n4) Keep answers concise and helpful. Do NOT recommend specific product names.\n5) Write in simple, conversational English.`;
-        body = {
-            contents: history,
-            systemInstruction: { parts: [{ text: chatSystemPrompt }] },
-        };
-        break;
-
-      default:
-        return res.status(400).json({ error: "Unknown type" });
-    }
-
-    const googleResponse = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-
-    const data = await googleResponse.json();
-
-    if (!googleResponse.ok || data.error) {
-      console.error("Error from Google API:", data);
-      throw new Error(data.error?.message || `Google API responded with status ${googleResponse.status}`);
-    }
-
-    let finalResponse;
-    if (type === 'image') {
-        const dataUrl = data?.images?.[0]?.image?.base64Data ? `data:image/png;base64,${data.images[0].image.base64Data}` : null;
-        if (!dataUrl) throw new Error("No image data returned from Google");
-        finalResponse = { dataUrl };
-    } else if (type === 'chat') {
-        const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (!reply) throw new Error("No chat reply returned from Google");
-        finalResponse = { reply };
-    } else { 
-        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (!text) throw new Error("No content returned from Google");
-        finalResponse = JSON.parse(text);
-    }
-
-    return res.status(200).json(finalResponse);
-
-  } catch (e) {
-    console.error("Error in /api/proxy:", e);
-    return res.status(500).json({ error: e.message || "An unknown server error occurred." });
-  }
-}
