@@ -21,8 +21,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Server configuration error: Missing API key." });
   }
 
-  // Using the correct model for each specific task
-  const TEXT_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
+  const TEXT_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
   const VISION_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=${API_KEY}`;
   const IMAGE_GEN_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${API_KEY}`;
 
@@ -34,15 +33,21 @@ export default async function handler(req, res) {
       case "design":
         url = TEXT_MODEL_URL;
         const { prompt: designPrompt } = req.body;
-        const designSystemPrompt = `You are a world-class interior designer for a luxury tile and bathware brand called GTSS...`; // Your full prompt here
+        const designSystemPrompt = `You are a world-class interior designer...`; // Your full prompt here
         body = {
           contents: [{ parts: [{ text: `User prompt: "${designPrompt}"` }] }],
           systemInstruction: { parts: [{ text: designSystemPrompt }] },
           generationConfig: {
             responseMimeType: "application/json",
+            // **FIX:** Fully defined schema
             responseSchema: {
               type: "OBJECT",
-              properties: { /* ... your schema properties ... */ },
+              properties: {
+                title: { type: "STRING" },
+                description: { type: "STRING" },
+                tileSuggestion: { type: "STRING" },
+                bathwareSuggestion: { type: "STRING" },
+              },
               required: ["title", "description", "tileSuggestion", "bathwareSuggestion"],
             },
           },
@@ -60,9 +65,16 @@ export default async function handler(req, res) {
           systemInstruction: { parts: [{ text: styleSystemPrompt }] },
           generationConfig: {
             responseMimeType: "application/json",
+            // **FIX:** Fully defined schema
             responseSchema: {
               type: "OBJECT",
-              properties: { /* ... your schema properties ... */ },
+              properties: {
+                primaryStyle: { type: "STRING" },
+                keyMood: { type: "STRING" },
+                colorPalette: { type: "STRING" },
+                materialProfile: { type: "STRING" },
+                guidance: { type: "STRING" },
+              },
               required: ["primaryStyle", "keyMood", "colorPalette", "materialProfile", "guidance"],
             },
           },
@@ -70,9 +82,8 @@ export default async function handler(req, res) {
         break;
 
       case "image":
-        url = IMAGE_GEN_MODEL_URL; // Correct endpoint for Gemini image generation
+        url = IMAGE_GEN_MODEL_URL;
         const { prompt: imagePrompt } = req.body;
-        // This is the correct body structure for this model
         body = {
           contents: [{
             parts: [{ text: imagePrompt }]
@@ -109,7 +120,6 @@ export default async function handler(req, res) {
 
     let finalResponse;
     if (type === 'image') {
-      // This is the correct way to parse the image response from this model
       const base64Data = data?.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
       if (!base64Data) {
         console.error("No image data found in Google's response. Full response:", JSON.stringify(data, null, 2));
