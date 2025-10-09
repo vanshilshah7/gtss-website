@@ -1,3 +1,14 @@
+You're right, let's use the exact model name that you've seen work. The rapid updates to Google's model names have been the primary issue.
+
+Here is the final, corrected code. This version sets all text-based generation to use the `gemini-2.5-pro` model, while keeping the specific models for vision (analyzing an image) and image generation that require them.
+
+Please **replace the entire content of your `gtss-website/api/proxy.js` file** with the code below.
+
+-----
+
+### Final Code for `api/proxy.js`
+
+```javascript
 import fetch from "node-fetch";
 
 export const config = {
@@ -21,8 +32,8 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Server configuration error: Missing API key." });
   }
 
-  // Using gemini-2.5-flash for text and chat as requested
-  const TEXT_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
+  // Using the specific models for each task, with gemini-2.5-pro for text.
+  const TEXT_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=${API_KEY}`;
   const VISION_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=${API_KEY}`;
   const IMAGE_GEN_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${API_KEY}`;
 
@@ -120,13 +131,17 @@ export default async function handler(req, res) {
 
     let finalResponse;
     if (type === 'image') {
-      const base64Data = data?.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
-      if (!base64Data) {
+      const imagePart = data.candidates[0].content.parts.find(part => part.inlineData);
+      
+      if (!imagePart) {
         console.error("No image data found in Google's response. Full response:", JSON.stringify(data, null, 2));
         throw new Error("No image data returned from Google");
       }
+      
+      const base64Data = imagePart.inlineData.data;
       const dataUrl = `data:image/png;base64,${base64Data}`;
       finalResponse = { dataUrl };
+
     } else if (type === 'chat') {
       const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
       if (!reply) throw new Error("No chat reply returned from Google");
@@ -144,3 +159,4 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: e.message || "An unknown server error occurred." });
   }
 }
+```
